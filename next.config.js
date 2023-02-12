@@ -8,7 +8,7 @@ const nextConfig = {
       {
         protocol: imagesPath.protocol.slice(0, -1),
         hostname: imagesPath.hostname,
-        port: imagesPath.port || 80,
+        port: imagesPath.port,
         pathname: imagesPath.pathname,
       },
     ],
