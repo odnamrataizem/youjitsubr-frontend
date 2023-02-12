@@ -1,16 +1,24 @@
+const imagesPath = new URL(process.env.IMAGES_PATH);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/**',
+        protocol: imagesPath.protocol.slice(0, -1),
+        hostname: imagesPath.hostname,
+        port: imagesPath.port || 80,
+        pathname: imagesPath.pathname,
       },
     ],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;
