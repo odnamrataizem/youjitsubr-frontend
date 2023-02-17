@@ -1,4 +1,3 @@
-import { DocumentRenderer } from '@keystone-6/document-renderer';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -7,6 +6,7 @@ import type { Post, SlateDocument, UploadedFile } from '../lib/fetching';
 import EntityLink from './EntityLink';
 import Paginator from './Paginator';
 import PostLink from './PostLink';
+import Renderer from './Renderer';
 
 type ListingObject = {
   id: string;
@@ -47,7 +47,7 @@ export default function Listing<T extends ListingObject>({
           style={{ objectFit: 'cover' }}
         />
       )}
-      {description && <DocumentRenderer document={description} />}
+      {description && <Renderer document={description} />}
       <ul>
         {data.posts.map(post => (
           <li key={post.id}>

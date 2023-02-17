@@ -1,8 +1,8 @@
-import { DocumentRenderer } from '@keystone-6/document-renderer';
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
 import EntityLink from './EntityLink';
+import Renderer from './Renderer';
 
 type SinglePostProps = {
   data: Post;
@@ -25,8 +25,7 @@ export default function SinglePost({ data }: SinglePostProps) {
             </li>
           ))}
         </ul>
-        <DocumentRenderer document={data.content.document} />
-        <p>{JSON.stringify(data)}</p>
+        <Renderer document={data.content.document} />
       </>
     )
   );
