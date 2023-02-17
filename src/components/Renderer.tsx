@@ -41,36 +41,49 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
       return;
     }
 
-    resizeObserver.observe(iframe.contentDocument.documentElement);
+    const ready = () => {
+      if (iframe?.contentDocument?.readyState !== 'complete') {
+        return;
+      }
 
-    const contents = iframe.contentDocument.body;
+      resizeObserver.observe(iframe.contentDocument.documentElement);
+      iframe.contentDocument.removeEventListener('readystatechange', ready);
 
-    if (data.type === 'video') {
-      for (const iframe of contents.querySelectorAll('iframe')) {
-        if (iframe.width === '100%') {
-          continue;
+      const contents = iframe.contentDocument.body;
+
+      if (data.type === 'video') {
+        for (const iframe of contents.querySelectorAll('iframe')) {
+          if (iframe.width === '100%') {
+            continue;
+          }
+
+          iframe.style.width = '100%';
+          iframe.style.height = 'auto';
+          iframe.style.aspectRatio = `${iframe.width} / ${iframe.height}`;
+        }
+      }
+
+      for (const image of contents.querySelectorAll('img')) {
+        image.style.height = 'auto';
+        image.style.aspectRatio = `${image.width} / ${image.height}`;
+      }
+
+      for (const script of contents.querySelectorAll('script')) {
+        const newScript = document.createElement('script');
+
+        for (const attribute of script.attributes) {
+          newScript.setAttribute(attribute.name, attribute.value);
         }
 
-        iframe.style.width = '100%';
-        iframe.style.height = 'auto';
-        iframe.style.aspectRatio = `${iframe.width} / ${iframe.height}`;
+        newScript.append(document.createTextNode(script.innerHTML));
+        script.parentNode?.replaceChild(newScript, script);
       }
-    }
+    };
 
-    for (const image of contents.querySelectorAll('img')) {
-      image.style.height = 'auto';
-      image.style.aspectRatio = `${image.width} / ${image.height}`;
-    }
-
-    for (const script of contents.querySelectorAll('script')) {
-      const newScript = document.createElement('script');
-
-      for (const attribute of script.attributes) {
-        newScript.setAttribute(attribute.name, attribute.value);
-      }
-
-      newScript.append(document.createTextNode(script.innerHTML));
-      script.parentNode?.replaceChild(newScript, script);
+    if (iframe.contentDocument.readyState === 'complete') {
+      ready();
+    } else {
+      iframe.contentDocument.addEventListener('readystatechange', ready);
     }
 
     return () => {
@@ -78,7 +91,10 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
         return;
       }
 
-      resizeObserver.unobserve(iframe.contentDocument.documentElement);
+      try {
+        iframe.contentDocument.removeEventListener('readystatechange', ready);
+        resizeObserver.unobserve(iframe?.contentDocument?.documentElement);
+      } catch {}
     };
   }, [data, resizeObserver]);
 
