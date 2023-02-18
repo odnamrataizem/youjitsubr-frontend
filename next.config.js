@@ -1,3 +1,4 @@
+const withLinaria = require('next-linaria');
 const imagesPath = new URL(process.env.IMAGES_PATH);
 
 /** @type {import('next').NextConfig} */
@@ -32,4 +33,4 @@ const nextConfig = {
   // },
 };
 
-module.exports = nextConfig;
+module.exports = withLinaria(nextConfig);
