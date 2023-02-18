@@ -106,6 +106,10 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
           alt={alt}
           width={data.width}
           height={data.height}
+          style={{
+            height: 'auto',
+            aspectRatio: `${data.width} / ${data.height}`,
+          }}
         />
       ) : (
         <iframe
