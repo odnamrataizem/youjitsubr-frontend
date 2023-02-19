@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
+import { ProseContainer } from '../styles/common';
 import Renderer from './Renderer';
 
 type SinglePageProps = {
@@ -10,11 +11,15 @@ type SinglePageProps = {
 export default function SinglePage({ data }: SinglePageProps) {
   return (
     data && (
-      <>
-        {data.cover?.url}
-        <h1>{data.title}</h1>
-        <Renderer document={data.content.document} />
-      </>
+      <article>
+        <header>
+          {data.cover?.url}
+          <h1>{data.title}</h1>
+        </header>
+        <ProseContainer>
+          <Renderer document={data.content.document} />
+        </ProseContainer>
+      </article>
     )
   );
 }

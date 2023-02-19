@@ -27,7 +27,7 @@ html:focus-within {
 }
 
 body {
-  line-height: 1.5;
+  line-height: var(--line-md);
   -webkit-font-smoothing: antialiased;
 }
 
