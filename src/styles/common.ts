@@ -60,6 +60,21 @@ export const ProseContainer = styled.div`
     margin-block: var(--scale-4);
   }
 
+  hr {
+    border: 0;
+    border-block-end: 1px solid;
+  }
+
+  ul,
+  ol {
+    padding-inline-start: var(--size-8);
+
+    ul,
+    ol {
+      margin: 0;
+    }
+  }
+
   figcaption {
     text-align: center;
     font-size: var(--scale-0);
