@@ -12,9 +12,9 @@ type SinglePostProps = {
 };
 
 export default function SinglePost({ data }: SinglePostProps) {
-  const authors = new Intl.ListFormat('pt-BR').formatToParts(
-    data.authors.map((_, index) => index.toString()),
-  );
+  const authors = new Intl.ListFormat(
+    process.env.NEXT_PUBLIC_LOCALE,
+  ).formatToParts(data.authors.map((_, index) => index.toString()));
 
   return (
     data && (
@@ -25,13 +25,19 @@ export default function SinglePost({ data }: SinglePostProps) {
             <StyledLead>{data.lead}</StyledLead>
             <StyledMeta>
               Postado em <EntityLink kind="posts" data={data.category} /> a{' '}
-              {new Date(data.publishedAt).toLocaleString('pt-BR', {
-                dateStyle: 'short',
-              })}{' '}
+              {new Date(data.publishedAt).toLocaleString(
+                process.env.NEXT_PUBLIC_LOCALE,
+                {
+                  dateStyle: 'short',
+                  timeZone: process.env.NEXT_PUBLIC_TZ,
+                },
+              )}{' '}
               — Por{' '}
               {authors.map(part =>
                 part.type === 'literal' ? (
-                  part.value
+                  <React.Fragment key={JSON.stringify(part)}>
+                    {part.value}
+                  </React.Fragment>
                 ) : (
                   <EntityLink
                     key={JSON.stringify(part)}
@@ -40,10 +46,10 @@ export default function SinglePost({ data }: SinglePostProps) {
                   />
                 ),
               )}
-              <StyledHero>
-                <Image priority fill alt="" src={data.cover?.url ?? ''} />
-              </StyledHero>
             </StyledMeta>
+            <StyledHero>
+              <Image priority fill alt="" src={data.cover?.url ?? ''} />
+            </StyledHero>
           </ProseContainer>
         </StyledHeader>
         <ProseContainer>

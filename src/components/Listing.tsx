@@ -65,9 +65,13 @@ export default function Listing<T extends ListingObject>({
             <br />
             {post.lead}
             <br />
-            {new Date(post.publishedAt).toLocaleString('pt-BR', {
-              dateStyle: 'short',
-            })}
+            {new Date(post.publishedAt).toLocaleString(
+              process.env.NEXT_PUBLIC_LOCALE,
+              {
+                dateStyle: 'short',
+                timeZone: process.env.NEXT_PUBLIC_TZ,
+              },
+            )}
             {post.sticky && (
               <>
                 <br />

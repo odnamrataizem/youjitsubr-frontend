@@ -67,6 +67,7 @@ export default function Home({ data }: HomeProps) {
             <br />
             {new Date(post.publishedAt).toLocaleString('pt-BR', {
               dateStyle: 'short',
+              timeZone: process.env.NEXT_PUBLIC_TZ,
             })}
             {post.sticky && (
               <>
