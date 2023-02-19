@@ -75,6 +75,30 @@ export const ProseContainer = styled.div`
     }
   }
 
+  ul ul {
+    list-style: circle;
+
+    ul {
+      list-style: square;
+
+      ul {
+        list-style: disc;
+      }
+    }
+  }
+
+  ol ol {
+    list-style: lower-alpha;
+
+    ol {
+      list-style: lower-roman;
+
+      ol {
+        list-style: numeric;
+      }
+    }
+  }
+
   figcaption {
     text-align: center;
     font-size: var(--scale-0);
