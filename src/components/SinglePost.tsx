@@ -12,33 +12,82 @@ type SinglePostProps = {
 };
 
 export default function SinglePost({ data }: SinglePostProps) {
+  const authors = new Intl.ListFormat('pt-BR').formatToParts(
+    data.authors.map((_, index) => index.toString()),
+  );
+
   return (
     data && (
       <article>
-        <header>
-          <StyledHero>
-            <Image priority fill alt="" src={data.cover?.url ?? ''} />
-          </StyledHero>
-          <h1>{data.title}</h1>
-          <p>{data.lead}</p>
-          <p>
-            <EntityLink kind="posts" data={data.category} />
-          </p>
-          <ul>
-            {data.tags.map(tag => (
-              <li key={tag.id}>
-                <EntityLink kind="tags" data={tag} />
-              </li>
-            ))}
-          </ul>
-        </header>
+        <StyledHeader>
+          <ProseContainer>
+            <StyledTitle>{data.title}</StyledTitle>
+            <StyledLead>{data.lead}</StyledLead>
+            <StyledMeta>
+              Postado em <EntityLink kind="posts" data={data.category} /> a{' '}
+              {new Date(data.publishedAt).toLocaleString('pt-BR', {
+                dateStyle: 'short',
+              })}{' '}
+              — Por{' '}
+              {authors.map(part =>
+                part.type === 'literal' ? (
+                  part.value
+                ) : (
+                  <EntityLink
+                    key={JSON.stringify(part)}
+                    kind="people"
+                    data={data.authors[Number.parseInt(part.value, 10)]}
+                  />
+                ),
+              )}
+              <StyledHero>
+                <Image priority fill alt="" src={data.cover?.url ?? ''} />
+              </StyledHero>
+            </StyledMeta>
+          </ProseContainer>
+        </StyledHeader>
         <ProseContainer>
           <Renderer document={data.content.document} />
         </ProseContainer>
+        <StyledFooter>
+          <ProseContainer>
+            <StyledTags>
+              {data.tags.map(tag => (
+                <li key={tag.id}>
+                  <EntityLink kind="tags" data={tag} />
+                </li>
+              ))}
+            </StyledTags>
+          </ProseContainer>
+        </StyledFooter>
       </article>
     )
   );
 }
+
+const StyledHeader = styled.header`
+  h1,
+  p {
+    margin: 0;
+  }
+
+  a {
+    font-weight: var(--weight-semibold);
+  }
+`;
+
+const StyledTitle = styled.h1`
+  font-weight: var(--weight-medium);
+`;
+
+const StyledLead = styled.p`
+  font-size: var(--scale-3);
+  font-weight: var(--weight-light);
+`;
+
+const StyledMeta = styled.p`
+  font-size: var(--scale-0);
+`;
 
 const StyledHero = styled.div`
   position: relative;
@@ -48,4 +97,35 @@ const StyledHero = styled.div`
   img {
     object-fit: cover;
   }
-`
+`;
+
+const StyledFooter = styled.footer`
+  font-size: var(--scale-3);
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    font-weight: var(--weight-black);
+    text-decoration: none;
+  }
+`;
+
+const StyledTags = styled.ul`
+  li {
+    display: inline-block;
+
+    &:not(:first-child) {
+      margin-inline-start: 1em;
+    }
+
+    a {
+      &::before {
+        content: '#';
+        opacity: 0.75;
+      }
+    }
+  }
+`;

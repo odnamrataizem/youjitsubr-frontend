@@ -44,6 +44,10 @@ export const ProseContainer = styled.div`
   font-size: var(--scale-2);
   line-height: var(--scale-4);
 
+  a {
+    color: #a3003e;
+  }
+
   p,
   h1,
   h2,
@@ -58,6 +62,31 @@ export const ProseContainer = styled.div`
   pre,
   figure {
     margin-block: var(--scale-4);
+  }
+
+  h1 {
+    font-size: var(--scale-5);
+    line-height: var(--scale-6);
+  }
+
+  h2 {
+    font-size: var(--scale-4);
+  }
+
+  h3 {
+    font-size: var(--scale-3);
+  }
+
+  h4 {
+    font-size: var(--scale-2);
+  }
+
+  h5 {
+    font-size: var(--scale-1);
+  }
+
+  h6 {
+    font-size: var(--scale-0);
   }
 
   hr {
@@ -97,6 +126,10 @@ export const ProseContainer = styled.div`
         list-style: numeric;
       }
     }
+  }
+
+  figure img {
+    margin-inline: auto;
   }
 
   figcaption {
