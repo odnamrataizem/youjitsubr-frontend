@@ -49,7 +49,22 @@ select {
   font: inherit;
 }
 
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  border-radius: var(--radius-sm);
+  background: var(--color-grey-100);
+  padding-inline: var(--size-1);
+}
+
+pre {
+  padding-inline: var(--size-4);
+  padding-block: var(--size-2);
+}
+
 p,
+li,
 h1,
 h2,
 h3,
