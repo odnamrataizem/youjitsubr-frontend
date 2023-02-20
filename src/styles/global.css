@@ -55,12 +55,14 @@ pre {
   font-family: var(--font-mono);
   border-radius: var(--radius-sm);
   background: var(--color-grey-100);
-  padding-inline: var(--size-1);
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
 }
 
 pre {
   padding-inline: var(--size-4);
   padding-block: var(--size-2);
+  overflow: auto;
 }
 
 p,
