@@ -2,8 +2,9 @@ import {
   DocumentRenderer,
   DocumentRendererProps,
 } from '@keystone-6/document-renderer';
+import useResizeObserver from '@react-hook/resize-observer';
 import Image from 'next/image';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 type EmbedProps = {
   src: string;
@@ -16,23 +17,18 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
   data = JSON.parse(data);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const resizeObserver = useMemo(
-    () =>
-      globalThis.ResizeObserver
-        ? new ResizeObserver(entries => {
-            const iframe = iframeRef.current;
+  const [iframeContents, setIframeContents] = useState<HTMLElement>();
+  useResizeObserver(iframeContents ?? null, entry => {
+    const iframe = iframeRef.current;
 
-            if (!iframe) {
-              return;
-            }
+    if (!iframe) {
+      return;
+    }
 
-            const { height } = entries[0].contentRect;
-            iframe.style.height = `${height}px`;
-            iframe.style.aspectRatio = '';
-          })
-        : { observe: () => {}, unobserve: () => {} },
-    [],
-  );
+    const { height } = entry.contentRect;
+    iframe.style.height = `${height}px`;
+    iframe.style.aspectRatio = '';
+  });
 
   useEffect(() => {
     const iframe = iframeRef.current;
@@ -42,61 +38,71 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     }
 
     const ready = () => {
-      if (iframe?.contentDocument?.readyState !== 'complete') {
+      if (
+        iframe?.contentDocument?.readyState !== 'complete' ||
+        !iframe.contentDocument.documentElement.dataset.loaded
+      ) {
+        setTimeout(ready, 25);
         return;
       }
 
-      resizeObserver.observe(iframe.contentDocument.documentElement);
-      iframe.contentDocument.removeEventListener('readystatechange', ready);
-
-      const contents = iframe.contentDocument.body;
-
-      if (data.type === 'video') {
-        for (const iframe of contents.querySelectorAll('iframe')) {
-          if (iframe.width === '100%') {
-            continue;
-          }
-
-          iframe.style.width = '100%';
-          iframe.style.height = 'auto';
-          iframe.style.aspectRatio = `${iframe.width} / ${iframe.height}`;
-        }
-      }
-
-      for (const image of contents.querySelectorAll('img')) {
-        image.style.height = 'auto';
-        image.style.aspectRatio = `${image.width} / ${image.height}`;
-      }
-
-      for (const script of contents.querySelectorAll('script')) {
-        const newScript = document.createElement('script');
-
-        for (const attribute of script.attributes) {
-          newScript.setAttribute(attribute.name, attribute.value);
-        }
-
-        newScript.append(document.createTextNode(script.innerHTML));
-        script.parentNode?.replaceChild(newScript, script);
-      }
+      setIframeContents(iframe.contentDocument.documentElement);
     };
 
     if (iframe.contentDocument.readyState === 'complete') {
       ready();
     } else {
-      iframe.contentDocument.addEventListener('readystatechange', ready);
+      iframe.contentDocument.addEventListener('readystatechange', ready, {
+        once: true,
+      });
     }
 
     return () => {
-      if (!iframe?.contentDocument) {
-        return;
+      iframe.contentDocument?.removeEventListener('readystatechange', ready);
+    };
+  }, []);
+
+  useEffect(() => {
+    const contents = iframeContents?.querySelector('body');
+
+    if (!contents) {
+      return;
+    }
+
+    if (data.type === 'video') {
+      for (const iframe of contents.querySelectorAll('iframe')) {
+        if (iframe.width === '100%') {
+          continue;
+        }
+
+        iframe.style.width = '100%';
+        iframe.style.height = 'auto';
+        iframe.style.aspectRatio = `${iframe.width} / ${iframe.height}`;
+      }
+    }
+
+    for (const image of contents.querySelectorAll('img')) {
+      image.style.height = 'auto';
+      image.style.aspectRatio = `${image.width} / ${image.height}`;
+    }
+
+    for (const script of contents.querySelectorAll('script')) {
+      const newScript = document.createElement('script');
+
+      for (const attribute of script.attributes) {
+        newScript.setAttribute(attribute.name, attribute.value);
       }
 
-      try {
-        iframe.contentDocument.removeEventListener('readystatechange', ready);
-        resizeObserver.unobserve(iframe?.contentDocument?.documentElement);
-      } catch {}
-    };
-  }, [data, resizeObserver]);
+      newScript.append(document.createTextNode(script.innerHTML));
+      script.parentNode?.replaceChild(newScript, script);
+    }
+  }, [data, iframeContents]);
+
+  const srcDoc = useMemo(
+    () =>
+      `<!DOCTYPE html><html data-loaded="true" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${data.html}</body></html>`,
+    [data.html],
+  );
 
   return (
     <figure>
@@ -120,7 +126,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
             border: '0',
             verticalAlign: 'top',
           }}
-          srcDoc={`<!DOCTYPE html><html lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${data.html}</body></html>`}
+          srcDoc={srcDoc}
         />
       )}
       <figcaption>{caption}</figcaption>
