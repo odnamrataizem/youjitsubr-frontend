@@ -20,6 +20,8 @@ body {
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   height: 100%;
+  hyphens: auto;
+  text-align: justify;
 }
 
 html:focus-within {
