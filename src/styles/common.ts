@@ -11,7 +11,7 @@ export enum Breakpoints {
 
 export const Container = styled.main`
   margin-inline: auto;
-  padding-inline: 10px;
+  padding-inline: var(--size-5);
 
   @media (width < ${Breakpoints.SM}) {
     inline-size: 100%;
