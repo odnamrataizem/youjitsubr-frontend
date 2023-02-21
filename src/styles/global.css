@@ -57,6 +57,7 @@ pre {
   background: var(--color-grey-100);
   padding-inline: var(--size-2);
   padding-block: var(--size-1);
+  hyphens: none;
 }
 
 pre {
