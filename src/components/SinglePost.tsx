@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
-import { ProseContainer } from '../styles/common';
+import { ProseContainer, visuallyHidden } from '../styles/common';
 import EntityLink from './EntityLink';
 import Renderer from './Renderer';
 
@@ -32,6 +32,32 @@ export default function SinglePost({ data }: SinglePostProps) {
                   timeZone: process.env.NEXT_PUBLIC_TZ,
                 },
               )}{' '}
+              {new Date(data.publishedAt).toLocaleString(
+                process.env.NEXT_PUBLIC_LOCALE,
+                {
+                  timeStyle: 'short',
+                  timeZone: process.env.NEXT_PUBLIC_TZ,
+                },
+              )}
+              {data.updatedAt !== data.publishedAt && (
+                <>
+                  , atualizado a{' '}
+                  {new Date(data.updatedAt).toLocaleString(
+                    process.env.NEXT_PUBLIC_LOCALE,
+                    {
+                      dateStyle: 'short',
+                      timeZone: process.env.NEXT_PUBLIC_TZ,
+                    },
+                  )}{' '}
+                  {new Date(data.updatedAt).toLocaleString(
+                    process.env.NEXT_PUBLIC_LOCALE,
+                    {
+                      timeStyle: 'short',
+                      timeZone: process.env.NEXT_PUBLIC_TZ,
+                    },
+                  )}
+                </>
+              )}{' '}
               — Por{' '}
               {authors.map(part =>
                 part.type === 'literal' ? (
@@ -47,9 +73,20 @@ export default function SinglePost({ data }: SinglePostProps) {
                 ),
               )}
             </StyledMeta>
-            <StyledHero>
-              <Image priority fill alt="" src={data.cover?.url ?? ''} />
-            </StyledHero>
+            <Image
+              priority
+              alt=""
+              src={data.cover?.url ?? ''}
+              width={data.cover?.width ?? 0}
+              height={data.cover?.height ?? 0}
+              style={{
+                width: '100%',
+                height: 'auto',
+                aspectRatio: `${data.cover?.width ?? 0} / ${
+                  data.cover?.height ?? 0
+                }`,
+              }}
+            />
           </ProseContainer>
         </StyledHeader>
         <ProseContainer>
@@ -57,13 +94,16 @@ export default function SinglePost({ data }: SinglePostProps) {
         </ProseContainer>
         <StyledFooter>
           <ProseContainer>
-            <StyledTags>
-              {data.tags.map(tag => (
-                <li key={tag.id}>
-                  <EntityLink kind="tags" data={tag} />
-                </li>
-              ))}
-            </StyledTags>
+            <section>
+              <h2 className={visuallyHidden}>Tags</h2>
+              <StyledTags>
+                {data.tags.map(tag => (
+                  <li key={tag.id}>
+                    <EntityLink kind="tags" data={tag} />
+                  </li>
+                ))}
+              </StyledTags>
+            </section>
           </ProseContainer>
         </StyledFooter>
       </article>
@@ -72,6 +112,8 @@ export default function SinglePost({ data }: SinglePostProps) {
 }
 
 const StyledHeader = styled.header`
+  padding-block-start: var(--size-12);
+
   h1,
   p {
     margin: 0;
@@ -93,16 +135,6 @@ const StyledLead = styled.p`
 
 const StyledMeta = styled.p`
   font-size: var(--scale-0);
-`;
-
-const StyledHero = styled.div`
-  position: relative;
-  max-inline-size: var(--size-96);
-  aspect-ratio: 16 / 9;
-
-  img {
-    object-fit: cover;
-  }
 `;
 
 const StyledFooter = styled.footer`

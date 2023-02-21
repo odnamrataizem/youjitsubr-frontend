@@ -68,6 +68,8 @@ const ALL_POSTS_LIGHT_QUERY = gql`
 
 export type UploadedFile = {
   url: string;
+  width: number;
+  height: number;
 };
 
 export type SlateDocument = {

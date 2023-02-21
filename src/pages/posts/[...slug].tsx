@@ -28,6 +28,8 @@ const POST_QUERY = gql`
       }
       cover {
         url
+        width
+        height
       }
       sticky
       authors(orderBy: { name: asc }) {
