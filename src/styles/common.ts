@@ -27,7 +27,7 @@ export const Container = styled.main`
 
   @media (width >= ${Breakpoints.LG}) {
     inline-size: ${Breakpoints.LG};
-    padding-inline-end: calc(10px + var(--size-32));
+    padding-inline-end: calc(var(--size-5) + var(--size-32));
   }
 
   @media (width >= ${Breakpoints.XL}) {
@@ -92,7 +92,7 @@ export const ProseContainer = styled.div`
 
   hr {
     border: 0;
-    border-block-end: 1px solid;
+    box-shadow: 0 var(--size-px);
   }
 
   ul,

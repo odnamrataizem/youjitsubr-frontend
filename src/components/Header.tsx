@@ -1,29 +1,66 @@
 import { styled } from '@linaria/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
-import { Breakpoints, Container } from '../styles/common';
+import { Breakpoints, Container, visuallyHidden } from '../styles/common';
 
 export default function Header() {
   return (
     <StyledHeader>
-      <Container as="div">
-        <h1>YouJitsuBR</h1>
-      </Container>
+      <Link href="/">
+        <StyledContainer as="div">
+          <StyledImageContainer>
+            <Image priority fill src="/kiyotaka-kei.png" alt="" />
+          </StyledImageContainer>
+          <StyledSiteTitle>
+            <Image priority fill src="/yjbr.svg" alt="YoujitsuBR" />
+          </StyledSiteTitle>
+        </StyledContainer>
+      </Link>
       <StyledMenu id="main-menu"></StyledMenu>
     </StyledHeader>
   );
 }
 
-export const StyledHeader = styled.header`
+const StyledHeader = styled.header`
   border-block-end: var(--size-1) solid #a3003e;
-  block-size: var(--size-12);
+  block-size: var(--size-14);
 
   @media (width >= ${Breakpoints.MD}) {
     block-size: var(--size-72);
   }
 `;
 
-export const StyledMenu = styled.nav`
+const StyledContainer = styled(Container)`
+  display: flex;
+  align-items: center;
+  block-size: 100%;
+
+  > * {
+    flex: 1;
+  }
+
+  @media (width < ${Breakpoints.MD}) {
+    inline-size: var(--size-48);
+  }
+`;
+
+const StyledImageContainer = styled.div`
+  position: relative;
+  block-size: 100%;
+
+  img {
+    object-fit: contain;
+  }
+`;
+
+const StyledSiteTitle = styled.h1`
+  position: relative;
+  block-size: 70%;
+`;
+
+const StyledMenu = styled.nav`
   position: fixed;
   inset-block: 0;
   inset-inline-end: 0;
