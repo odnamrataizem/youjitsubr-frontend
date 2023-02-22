@@ -46,7 +46,11 @@ export const ProseContainer = styled.div`
   line-height: var(--scale-4);
 
   a {
-    color: #a3003e;
+    color: var(--color-youjitsu-1);
+
+    html.dark & {
+      color: var(--color-youjitsu-2);
+    }
   }
 
   p,

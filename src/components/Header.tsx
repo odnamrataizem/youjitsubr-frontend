@@ -24,8 +24,12 @@ export default function Header() {
 }
 
 const StyledHeader = styled.header`
-  border-block-end: var(--size-1) solid #a3003e;
+  border-block-end: var(--size-1) solid var(--color-youjitsu-1);
   block-size: var(--size-14);
+
+  html.dark & {
+    border-block-end-color: var(--color-youjitsu-2);
+  }
 
   @media (width >= ${Breakpoints.MD}) {
     block-size: var(--size-72);
@@ -65,7 +69,11 @@ const StyledMenu = styled.nav`
   inset-block: 0;
   inset-inline-end: 0;
   inline-size: var(--size-32);
-  background: #a3003e;
+  background: var(--color-youjitsu-1);
+
+  html.dark & {
+    background: var(--color-youjitsu-2);
+  }
 
   @media (width < ${Breakpoints.LG}) {
     display: none;
