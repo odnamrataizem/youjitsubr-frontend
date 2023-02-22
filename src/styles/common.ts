@@ -96,7 +96,15 @@ export const ProseContainer = styled.div`
 
   hr {
     border: 0;
-    box-shadow: 0 var(--size-px);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 0;
+      border-block-end: var(--size-px) solid;
+    }
   }
 
   ul,
