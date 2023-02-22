@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
-import { ProseContainer, visuallyHidden } from '../styles/common';
+import { Breakpoints, ProseContainer, visuallyHidden } from '../styles/common';
 import EntityLink from './EntityLink';
 import Renderer from './Renderer';
 
@@ -121,6 +121,10 @@ const StyledHeader = styled.header`
 
   a {
     font-weight: var(--weight-semibold);
+  }
+
+  @media (width < ${Breakpoints.MD}) {
+    padding-block-start: var(--size-6);
   }
 `;
 
