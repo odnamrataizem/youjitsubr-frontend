@@ -97,6 +97,8 @@ export const ProseContainer = styled.div`
   hr {
     border: 0;
     position: relative;
+    display: flow-root;
+    overflow: visible;
 
     &::after {
       content: '';
