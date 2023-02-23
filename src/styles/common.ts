@@ -69,6 +69,11 @@ export const ProseContainer = styled.div`
     margin-block: var(--scale-4);
   }
 
+  p,
+  li {
+    text-align: justify;
+  }
+
   h1 {
     font-size: var(--scale-5);
     line-height: var(--scale-6);
@@ -154,8 +159,8 @@ export const ProseContainer = styled.div`
 `;
 
 export const visuallyHidden = css`
-  width: 1px !important;
-  height: 1px !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
   padding: 0 !important;
   margin: -1px !important;
   overflow: hidden !important;

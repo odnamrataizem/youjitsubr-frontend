@@ -23,7 +23,6 @@ body {
   text-rendering: optimizeLegibility;
   min-block-size: 100%;
   hyphens: auto;
-  text-align: justify;
 }
 
 html.dark,
