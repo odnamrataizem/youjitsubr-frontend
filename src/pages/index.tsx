@@ -5,11 +5,11 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { BsFillStarFill } from 'react-icons/bs';
 
 import Authors from '../components/Authors';
 import EntityLink from '../components/EntityLink';
 import PostLink from '../components/PostLink';
+import { Sticky } from '../components/Sticky';
 import { addApolloState, initializeApollo } from '../lib/apolloClient';
 import type { Post } from '../lib/fetching';
 import { Breakpoints, styledLinks, visuallyHidden } from '../styles/common';
@@ -96,7 +96,7 @@ export default function Home({ data }: HomeProps) {
             {morePosts.map(post => (
               <li key={post.id}>
                 <StyledImageContainer>
-                  <Image priority fill alt="" src={post.cover?.url ?? ''} />
+                  <Image fill alt="" src={post.cover?.url ?? ''} />
                   {post.sticky && <Sticky />}
                 </StyledImageContainer>
                 <div className={styledLinks}>
@@ -122,14 +122,6 @@ export default function Home({ data }: HomeProps) {
         </section>
       </StyledColumns>
     </>
-  );
-}
-
-function Sticky() {
-  return (
-    <StyledSticky>
-      <BsFillStarFill title="Post fixado" />
-    </StyledSticky>
   );
 }
 
@@ -244,15 +236,6 @@ const StyledTopPosts = styled.ul`
       }
     }
   }
-`;
-
-const StyledSticky = styled.div`
-  position: absolute;
-  inset-inline-end: var(--size-2);
-  inset-block-start: var(--size-2);
-  color: var(--color-gray-50);
-  z-index: var(--layer-1);
-  filter: drop-shadow(0 0 var(--size-1) var(--color-gray-900));
 `;
 
 const StyledTopPost = styled.li`
