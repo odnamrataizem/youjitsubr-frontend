@@ -98,11 +98,24 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     }
   }, [data, iframeContents]);
 
-  const srcDoc = useMemo(
-    () =>
-      `<!DOCTYPE html><html data-loaded="true" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${data.html}</body></html>`,
-    [data.html],
-  );
+  const [srcDoc, setSrcDoc] = useState(data.html);
+
+  useEffect(() => {
+    if (!data.html || !globalThis.localStorage) {
+      return;
+    }
+
+    const theme =
+      localStorage.theme ??
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const html = data.html.replace(
+      /(?=class="twitter)/,
+      `data-theme="${theme}" `,
+    );
+    setSrcDoc(
+      `<!DOCTYPE html><html data-loaded="true" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
+    );
+  }, [data.html]);
 
   return (
     <figure>
