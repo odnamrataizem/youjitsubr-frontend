@@ -4,7 +4,13 @@ import Link from 'next/link';
 import React from 'react';
 
 import type { Post, SlateDocument, UploadedFile } from '../lib/fetching';
-import { Breakpoints, ProseContainer } from '../styles/common';
+import {
+  Breakpoints,
+  ProseContainer,
+  StyledAboutInfoContainer,
+  StyledAboutPictureContainer,
+  StyledAboutSection,
+} from '../styles/common';
 import Paginator from './Paginator';
 import PostLink from './PostLink';
 import Renderer from './Renderer';
@@ -81,18 +87,18 @@ export default function Listing<T extends ListingObject>({
   return (
     <StyledContainer>
       <StyledTitle>{title}</StyledTitle>
-      {image && (
-        <Image
-          alt=""
-          src={image}
-          width="400"
-          height="400"
-          style={{ objectFit: 'cover' }}
-        />
-      )}
       {description && (
         <ProseContainer>
-          <Renderer document={description} />
+          <StyledAboutSection>
+            <StyledAboutPictureContainer>
+              <Image fill src={image} alt="" />
+            </StyledAboutPictureContainer>
+            <StyledAboutInfoContainer>
+              <div>
+                <Renderer document={description} />
+              </div>
+            </StyledAboutInfoContainer>
+          </StyledAboutSection>
         </ProseContainer>
       )}
       <StyledListing>

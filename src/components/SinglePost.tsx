@@ -6,6 +6,9 @@ import type { Post } from '../lib/fetching';
 import {
   Breakpoints,
   ProseContainer,
+  StyledAboutInfoContainer,
+  StyledAboutPictureContainer,
+  StyledAboutSection,
   styledLinks,
   visuallyHidden,
 } from '../styles/common';
@@ -101,15 +104,15 @@ export default function SinglePost({ data }: SinglePostProps) {
               <h2 className={visuallyHidden}>Autores</h2>
               {data.authors.map(author => (
                 <StyledAboutSection key={author.id}>
-                  <StyledAuthorPictureContainer>
+                  <StyledAboutPictureContainer>
                     <Image fill src={author.picture?.url ?? ''} alt="" />
-                  </StyledAuthorPictureContainer>
-                  <StyledAuthorInfoContainer>
+                  </StyledAboutPictureContainer>
+                  <StyledAboutInfoContainer>
                     <h3>{author.name}</h3>
                     <div>
                       <Renderer document={author.description.document} />
                     </div>
-                  </StyledAuthorInfoContainer>
+                  </StyledAboutInfoContainer>
                   <StyledLinkContainer>
                     <EntityLink kind="people" data={author}>
                       Ver posts
@@ -185,68 +188,6 @@ const StyledTagsSection = styled.section`
       }
     }
   }
-`;
-
-const StyledAboutSection = styled.section`
-  background: var(--color-gray-100);
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  border-radius: var(--radius-sm);
-  margin-block: var(--scale-4);
-  padding: var(--size-6);
-  gap: var(--size-6);
-  align-items: center;
-  font-size: var(--scale-0);
-
-  h3 {
-    margin-block-start: 0;
-
-    + div :last-child {
-      margin-block-end: 0;
-    }
-
-    @media (width < ${Breakpoints.MD}) {
-      + div {
-        margin-inline-start: calc(var(--size-20) * -1 + var(--size-6) * -1);
-      }
-    }
-  }
-
-  html.dark & {
-    background: var(--color-gray-800);
-  }
-
-  @media (width >= ${Breakpoints.MD}) {
-    border-radius: var(--radius-lg);
-    margin-block: var(--scale-4);
-    padding: var(--size-8);
-    gap: var(--size-8);
-  }
-`;
-
-const StyledAuthorPictureContainer = styled.div`
-  position: relative;
-  inline-size: var(--size-20);
-  block-size: var(--size-20);
-  align-self: flex-start;
-  margin-block-start: calc(var(--size-5) * -1);
-
-  img {
-    object-fit: cover;
-    border-radius: var(--radius-full);
-  }
-
-  @media (width >= ${Breakpoints.MD}) {
-    inline-size: var(--size-36);
-    block-size: var(--size-36);
-    margin-block-start: 0;
-    align-self: unset;
-  }
-`;
-
-const StyledAuthorInfoContainer = styled.div`
-  flex: 1;
 `;
 
 const StyledLinkContainer = styled.small`
