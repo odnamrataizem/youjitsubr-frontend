@@ -9,6 +9,7 @@ import {
   styledLinks,
   visuallyHidden,
 } from '../styles/common';
+import Authors from './Authors';
 import EntityLink from './EntityLink';
 import Renderer from './Renderer';
 
@@ -63,20 +64,7 @@ export default function SinglePost({ data }: SinglePostProps) {
                   )}
                 </>
               )}{' '}
-              — Por{' '}
-              {authors.map(part =>
-                part.type === 'literal' ? (
-                  <React.Fragment key={JSON.stringify(part)}>
-                    {part.value}
-                  </React.Fragment>
-                ) : (
-                  <EntityLink
-                    key={JSON.stringify(part)}
-                    kind="people"
-                    data={data.authors[Number.parseInt(part.value, 10)]}
-                  />
-                ),
-              )}
+              — Por <Authors data={data.authors} />
             </StyledMeta>
             <Image
               priority
