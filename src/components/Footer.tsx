@@ -9,11 +9,11 @@ export default function Footer() {
   return (
     <StyledFooter>
       <Container as="div">
-        <StyledSiteTitle>
-          <Link href="/">
+        <Link href="/">
+          <StyledSiteTitle>
             <Image priority fill src="/yjbr.svg" alt="" />
-          </Link>
-        </StyledSiteTitle>
+          </StyledSiteTitle>
+        </Link>
         <StyledPartnerList>
           <li>
             <Link href="https://google.com/">Google</Link>
@@ -58,6 +58,7 @@ const StyledSiteTitle = styled.div`
 
 const StyledPartnerList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-block: var(--size-5);
   gap: var(--size-5);
@@ -81,4 +82,4 @@ const StyledCopyrightContainer = styled(ProseContainer)`
   p {
     text-align: center;
   }
-`
+`;
