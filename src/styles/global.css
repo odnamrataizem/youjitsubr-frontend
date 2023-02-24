@@ -10,6 +10,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: var(--color-youjitsu-1);
+  color: var(--color-gray-50);
+}
+
 * {
   margin: 0;
   padding: 0;
