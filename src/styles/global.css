@@ -72,6 +72,11 @@ pre {
   hyphens: none;
 }
 
+b,
+strong {
+  font-weight: bolder;
+}
+
 html.dark code,
 html.dark kbd,
 html.dark pre {
