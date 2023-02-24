@@ -1,20 +1,24 @@
 import { gql } from '@apollo/client';
+import { css } from '@linaria/core';
+import { styled } from '@linaria/react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+
+import Authors from '../components/Authors';
 import EntityLink from '../components/EntityLink';
 import PostLink from '../components/PostLink';
-
 import { addApolloState, initializeApollo } from '../lib/apolloClient';
 import type { Post } from '../lib/fetching';
-import { POSTS_PER_PAGE } from '../lib/routing';
+import { Breakpoints, styledLinks, visuallyHidden } from '../styles/common';
 
 const FRONT_PAGE_QUERY = gql`
   query FrontPageQuery {
     posts(
       where: { status: { equals: PUBLISHED } }
       orderBy: [{ sticky: desc }, { publishedAt: desc }]
-      take: ${POSTS_PER_PAGE}
+      take: 10
     ) {
       id
       title
@@ -28,6 +32,11 @@ const FRONT_PAGE_QUERY = gql`
       }
       cover {
         url
+      }
+      authors {
+        id
+        name
+        slug
       }
     }
   }
@@ -44,40 +53,325 @@ export const getStaticProps: GetStaticProps<HomeProps> = async context => {
 };
 
 export default function Home({ data }: HomeProps) {
+  const topPost = data[0];
+
+  if (!topPost) {
+    return;
+  }
+
+  const threePosts = data.slice(1, 4);
+  const morePosts = data.slice(4);
+
   return (
     <>
-      <h1>YouJitsuBR</h1>
-      <p>Welcome</p>
-      <ul>
-        {data.map(post => (
-          <li key={post.id}>
-            <Image
-              alt=""
-              src={post.cover?.url ?? ''}
-              width="160"
-              height="120"
-              style={{ objectFit: 'cover' }}
-            />
-            <br />
-            <EntityLink kind="posts" data={post.category} />
-            <br />
-            <PostLink post={post} />
-            <br />
-            {post.lead}
-            <br />
-            {new Date(post.publishedAt).toLocaleString('pt-BR', {
-              dateStyle: 'short',
-              timeZone: process.env.NEXT_PUBLIC_TZ,
-            })}
-            {post.sticky && (
-              <>
-                <br />
-                Sticky
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+      <section>
+        <h2 className={visuallyHidden}>Últimos posts</h2>
+        <StyledTopPosts>
+          <StyledImageContainer as="li">
+            <Image priority fill alt="" src={topPost.cover?.url ?? ''} />
+            {topPost.sticky && <Sticky />}
+            <PostLink post={topPost}>
+              <span>{topPost.title}</span>
+            </PostLink>
+          </StyledImageContainer>
+          {threePosts.map(post => (
+            <StyledTopPost key={post.id}>
+              <StyledImageContainer>
+                <Image priority fill alt="" src={post.cover?.url ?? ''} />
+                {post.sticky && <Sticky />}
+              </StyledImageContainer>
+              <div className={styledLinks}>
+                <EntityLink kind="posts" data={post.category} />
+                <PostLink post={post} />
+              </div>
+            </StyledTopPost>
+          ))}
+        </StyledTopPosts>
+      </section>
+      <StyledColumns>
+        <section>
+          <h2 className={visuallyHidden}>Mais posts</h2>
+          <StyledMorePosts>
+            {morePosts.map(post => (
+              <li key={post.id}>
+                <StyledImageContainer>
+                  <Image priority fill alt="" src={post.cover?.url ?? ''} />
+                  {post.sticky && <Sticky />}
+                </StyledImageContainer>
+                <div className={styledLinks}>
+                  <EntityLink kind="posts" data={post.category} />
+                  <PostLink post={post} />
+                  <p>{post.lead}</p>
+                  <p>
+                    Por <Authors data={post.authors} /> a{' '}
+                    {new Date(post.publishedAt).toLocaleString(
+                      process.env.NEXT_PUBLIC_LOCALE,
+                      {
+                        dateStyle: 'short',
+                      },
+                    )}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </StyledMorePosts>
+          <Link className={styledAllPostsLink} href="/posts/~all">
+            Ver todos os posts
+          </Link>
+        </section>
+      </StyledColumns>
     </>
   );
 }
+
+function Sticky() {
+  return <StyledSticky>Sticky</StyledSticky>;
+}
+
+const StyledImageContainer = styled.div`
+  position: relative;
+  inline-size: var(--size-36);
+  block-size: var(--size-28);
+
+  @media (width < ${Breakpoints.XL}) {
+    inline-size: var(--size-24);
+    block-size: var(--size-20);
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  a {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: var(--scale-5);
+    line-height: var(--line-sm);
+    color: var(--color-gray-50);
+
+    span {
+      padding-inline: var(--size-8);
+      padding-block-start: var(--size-8);
+      padding-block-end: var(--size-4);
+      max-block-size: var(--size-full);
+      border-end-start-radius: var(--radius-sm);
+      border-end-end-radius: var(--radius-sm);
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.013) 8.1%,
+        rgba(0, 0, 0, 0.049) 15.5%,
+        rgba(0, 0, 0, 0.104) 22.5%,
+        rgba(0, 0, 0, 0.175) 29%,
+        rgba(0, 0, 0, 0.259) 35.3%,
+        rgba(0, 0, 0, 0.352) 41.2%,
+        rgba(0, 0, 0, 0.45) 47.1%,
+        rgba(0, 0, 0, 0.55) 52.9%,
+        rgba(0, 0, 0, 0.648) 58.8%,
+        rgba(0, 0, 0, 0.741) 64.7%,
+        rgba(0, 0, 0, 0.825) 71%,
+        rgba(0, 0, 0, 0.896) 77.5%,
+        rgba(0, 0, 0, 0.951) 84.5%,
+        rgba(0, 0, 0, 0.987) 91.9%,
+        rgb(0, 0, 0) 100%
+      );
+    }
+
+    @media (width < ${Breakpoints.SM}) {
+      font-size: var(--scale-2);
+
+      span {
+        padding-inline: var(--size-4);
+        padding-block-start: var(--size-4);
+        padding-block-end: var(--size-2);
+      }
+    }
+  }
+`;
+
+const StyledTopPosts = styled.ul`
+  padding: 0;
+  display: grid;
+  column-gap: var(--size-7);
+  row-gap: var(--size-5);
+  margin-block: var(--size-10);
+  font-weight: var(--weight-medium);
+
+  @media (${Breakpoints.MD} <= width < ${Breakpoints.XL}) {
+    grid-template: 1fr auto / 1fr 1fr 1fr;
+  }
+
+  @media (${Breakpoints.XL} <= width) {
+    grid-template: 1fr 1fr 1fr / 60% 40%;
+  }
+
+  li {
+    a {
+      text-decoration: none;
+    }
+
+    &::marker {
+      color: transparent;
+    }
+
+    &:first-child {
+      inline-size: var(--size-full);
+      block-size: var(--size-full);
+
+      ${StyledImageContainer} {
+        inline-size: unset;
+        block-size: unset;
+      }
+
+      @media (width < ${Breakpoints.XL}) {
+        aspect-ratio: var(--ratio-widescreen);
+      }
+
+      @media (${Breakpoints.MD} <= width < ${Breakpoints.XL}) {
+        grid-column: 1 / span 3;
+      }
+
+      @media (${Breakpoints.XL} <= width) {
+        grid-row: 1 / span 3;
+      }
+    }
+  }
+`;
+
+const StyledSticky = styled.div`
+  position: absolute;
+  inset-inline-end: var(--size-2);
+  inset-block-start: var(--size-2);
+  pointer-events: none;
+`;
+
+const StyledTopPost = styled.li`
+  display: flex;
+  align-items: center;
+  gap: var(--size-5);
+
+  ${StyledImageContainer} {
+    flex: none;
+  }
+
+  a {
+    display: block;
+    font-size: var(--scale-2);
+
+    &:last-of-type {
+      font-size: var(--scale-3);
+      color: var(--color-gray-900);
+
+      html.dark & {
+        color: var(--color-gray-50);
+      }
+    }
+
+    @media (width < ${Breakpoints.XL}) {
+      font-size: var(--scale-00);
+
+      &:last-of-type {
+        font-size: var(--scale-0);
+      }
+    }
+  }
+`;
+
+const StyledMorePosts = styled.ul`
+  li {
+    display: flex;
+    gap: var(--size-9);
+    margin-block-end: var(--size-10);
+    font-size: var(--scale-3);
+
+    a {
+      display: block;
+      text-decoration: none;
+      font-weight: var(--weight-medium);
+    }
+
+    > div > a:nth-child(2) {
+      color: var(--color-gray-900);
+
+      html.dark & {
+        color: var(--color-gray-50);
+      }
+    }
+
+    p {
+      font-size: var(--scale-1);
+
+      a {
+        display: revert;
+      }
+
+      &:last-of-type {
+        font-weight: var(--weight-medium);
+      }
+
+      @media (width < ${Breakpoints.MD}) {
+        font-size: var(--scale-00);
+      }
+    }
+
+    &::marker {
+      color: transparent;
+    }
+
+    @media (width < ${Breakpoints.MD}) {
+      font-size: var(--scale-0);
+    }
+  }
+
+  ${StyledImageContainer} {
+    inline-size: var(--size-60);
+    block-size: var(--size-40);
+
+    @media (width < ${Breakpoints.MD}) {
+      inline-size: var(--size-36);
+      block-size: var(--size-28);
+    }
+  }
+`;
+
+const StyledColumns = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  @media (${Breakpoints.XL} <= width) {
+    > :first-child {
+      inline-size: 70%;
+    }
+  }
+`;
+
+const styledAllPostsLink = css`
+  display: block;
+  text-decoration: none;
+  font-size: var(--scale-3);
+  text-align: center;
+  padding-inline: var(--size-6);
+  padding-block: var(--size-3);
+  margin-block-end: var(--size-10);
+  border-radius: var(--radius-sm);
+  color: var(--color-gray-50);
+  background: var(--color-youjitsu-1);
+  transition: background 0.25s ease-in-out;
+
+  &:hover,
+  &:focus {
+    background: var(--color-youjitsu-2);
+  }
+
+  html.dark & {
+    background: var(--color-youjitsu-2);
+
+    &:hover,
+    &:focus {
+      background: var(--color-youjitsu-1);
+    }
+  }
+`;
