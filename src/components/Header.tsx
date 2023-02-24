@@ -175,7 +175,7 @@ const StyledHeader = styled.header`
 const StyledContainer = styled(Container)`
   display: flex;
   align-items: center;
-  block-size: 100%;
+  block-size: var(--size-full);
 
   > * {
     flex: 1;
@@ -188,7 +188,7 @@ const StyledContainer = styled(Container)`
 
 const StyledImageContainer = styled.div`
   position: relative;
-  block-size: 100%;
+  block-size: var(--size-full);
 
   img {
     object-fit: contain;
@@ -319,7 +319,7 @@ const StyledMenuIcon = styled.span`
     position: absolute;
     inset-block-start: 0;
     block-size: var(--size-2);
-    inline-size: 100%;
+    inline-size: var(--size-full);
     background: var(--color-gray-50);
     border-radius: var(--radius-full);
     opacity: 1;

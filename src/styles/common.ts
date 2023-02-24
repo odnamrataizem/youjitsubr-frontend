@@ -14,7 +14,7 @@ export const Container = styled.main`
   padding-inline: var(--size-5);
 
   @media (width < ${Breakpoints.SM}) {
-    inline-size: 100%;
+    inline-size: var(--size-full);
   }
 
   @media (width >= ${Breakpoints.SM}) {

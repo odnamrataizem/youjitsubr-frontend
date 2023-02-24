@@ -134,7 +134,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
         <iframe
           ref={iframeRef}
           style={{
-            width: '100%',
+            width: 'var(--size-full)',
             aspectRatio: '16 / 9',
             border: '0',
             verticalAlign: 'top',
