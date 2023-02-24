@@ -1,8 +1,16 @@
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
+import { useMediaQuery } from '@react-hook/media-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import { tween } from '../lib/misc';
 
 import { Breakpoints, Container } from '../styles/common';
 
@@ -18,6 +26,72 @@ export default function Header() {
     event.preventDefault();
     setOpen(false);
   }, []);
+
+  const socialLinksRef = useRef<HTMLDivElement>(null);
+
+  const [socialLinkBoxes, setSocialLinkBoxes] = useState<any[]>([]);
+  const [blockSize, setBlockSize] = useState('auto');
+
+  const isMobile = useMediaQuery(`(width < ${Breakpoints.LG})`);
+
+  useEffect(() => {
+    if (!socialLinksRef.current) {
+      return;
+    }
+
+    const nodes = socialLinksRef.current.querySelectorAll<HTMLElement>(
+      `.${StyledSocialLink.__linaria.className}`,
+    );
+
+    if (!nodes) {
+      return;
+    }
+
+    const boxes = [];
+
+    for (const node of nodes) {
+      boxes.push({ x: node.offsetLeft, y: node.offsetTop, node });
+    }
+
+    setSocialLinkBoxes(boxes);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!socialLinksRef.current) {
+      return;
+    }
+
+    setBlockSize(
+      isMobile ? 'auto' : getComputedStyle(socialLinksRef.current).blockSize,
+    );
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) {
+      return;
+    }
+
+    for (const box of socialLinkBoxes) {
+      const lastX = box.x;
+      const lastY = box.y;
+
+      box.x = box.node.offsetLeft;
+      box.y = box.node.offsetTop;
+
+      if (lastX === box.x && lastY === box.y) {
+        continue;
+      }
+
+      const x = lastX - box.x;
+      const y = lastY - box.y;
+
+      tween(
+        box.node,
+        { x, y },
+        { x: 0, y: 0, duration: 250, easing: 'inOutSine' },
+      );
+    }
+  }, [socialLinkBoxes, open, isMobile]);
 
   return (
     <StyledHeader>
@@ -58,7 +132,7 @@ export default function Header() {
           </li>
         </ul>
       </StyledMenu>
-      <StyledSocialLinkContainer>
+      <StyledSocialLinkContainer ref={socialLinksRef} style={{ blockSize }}>
         <StyledSocialLink href="https://twitter.com/YouJitsuNoBR">
           <Image priority fill src="/twitter.svg" alt="Twitter" />
         </StyledSocialLink>
@@ -317,22 +391,29 @@ const StyledSocialLinkContainer = styled.div`
   position: fixed;
   inset-inline-end: var(--size-8);
   inset-block-end: var(--size-8);
-  inline-size: var(--size-16);
+  inline-size: var(--size-64);
+  aspect-ratio: 1 / 1;
   z-index: var(--layer-5);
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
   gap: var(--size-6);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
 
   ${StyledMenu}:target ~ &,
   ${StyledMenu}.open ~ & {
-    inline-size: var(--size-64);
+    flex-direction: row;
   }
 
   @media (width < ${Breakpoints.LG}) {
     visibility: hidden;
     opacity: 0;
-    inline-size: var(--size-64);
+    flex-direction: row;
     transform: translate3d(var(--size-80), 0, 0);
     transition: visibility 0.25s ease-in-out, transform 0.25s ease-in-out,
       opacity 0.25s ease-in-out;

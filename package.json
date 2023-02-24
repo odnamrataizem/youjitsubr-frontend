@@ -17,6 +17,7 @@
     "@linaria/core": "^4.2.6",
     "@linaria/react": "^4.3.4",
     "@mui/material": "^5.11.6",
+    "@react-hook/media-query": "^1.1.1",
     "@react-hook/resize-observer": "^1.2.6",
     "deepmerge": "^4.2.2",
     "graphql": "^16.6.0",
@@ -26,7 +27,8 @@
     "p-queue": "^7.3.4",
     "pollen-css": "^4.6.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "ts-easing": "^0.2.0"
   },
   "devDependencies": {
     "@linaria/babel-preset": "^4.4.1",
