@@ -3,7 +3,12 @@ import Image from 'next/image';
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
-import { Breakpoints, ProseContainer, visuallyHidden } from '../styles/common';
+import {
+  Breakpoints,
+  ProseContainer,
+  styledLinks,
+  visuallyHidden,
+} from '../styles/common';
 import EntityLink from './EntityLink';
 import Renderer from './Renderer';
 
@@ -20,7 +25,7 @@ export default function SinglePost({ data }: SinglePostProps) {
     data && (
       <StyledArticle>
         <StyledHeader>
-          <ProseContainer>
+          <ProseContainer className={styledLinks}>
             <StyledTitle>{data.title}</StyledTitle>
             <StyledLead>{data.lead}</StyledLead>
             <StyledMeta>
@@ -89,11 +94,11 @@ export default function SinglePost({ data }: SinglePostProps) {
             />
           </ProseContainer>
         </StyledHeader>
-        <ProseContainer>
+        <ProseContainer className={styledLinks}>
           <Renderer document={data.content.document} />
         </ProseContainer>
         <StyledFooter>
-          <ProseContainer>
+          <ProseContainer className={styledLinks}>
             <StyledTagsSection>
               <h2 className={visuallyHidden}>Tags</h2>
               <ul>

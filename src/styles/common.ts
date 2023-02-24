@@ -39,12 +39,7 @@ export const Container = styled.main`
   }
 `;
 
-export const ProseContainer = styled.div`
-  max-inline-size: var(--prose-md);
-  margin-inline: auto;
-  font-size: var(--scale-2);
-  line-height: var(--scale-4);
-
+export const styledLinks = css`
   a {
     color: var(--color-youjitsu-1);
     transition: color 0.25s ease-in-out;
@@ -63,6 +58,13 @@ export const ProseContainer = styled.div`
       }
     }
   }
+`;
+
+export const ProseContainer = styled.div`
+  max-inline-size: var(--prose-md);
+  margin-inline: auto;
+  font-size: var(--scale-2);
+  line-height: var(--scale-4);
 
   p,
   h1,

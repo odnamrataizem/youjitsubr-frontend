@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Post } from '../lib/fetching';
-import { ProseContainer } from '../styles/common';
+import { ProseContainer, styledLinks } from '../styles/common';
 import Renderer from './Renderer';
 
 type SinglePageProps = {
@@ -16,7 +16,7 @@ export default function SinglePage({ data }: SinglePageProps) {
           {data.cover?.url}
           <h1>{data.title}</h1>
         </header>
-        <ProseContainer>
+        <ProseContainer className={styledLinks}>
           <Renderer document={data.content.document} />
         </ProseContainer>
       </article>
