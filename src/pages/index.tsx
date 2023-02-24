@@ -5,6 +5,7 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { BsFillStarFill } from 'react-icons/bs';
 
 import Authors from '../components/Authors';
 import EntityLink from '../components/EntityLink';
@@ -125,7 +126,11 @@ export default function Home({ data }: HomeProps) {
 }
 
 function Sticky() {
-  return <StyledSticky>Sticky</StyledSticky>;
+  return (
+    <StyledSticky>
+      <BsFillStarFill title="Post fixado" />
+    </StyledSticky>
+  );
 }
 
 const StyledImageContainer = styled.div`
@@ -245,7 +250,9 @@ const StyledSticky = styled.div`
   position: absolute;
   inset-inline-end: var(--size-2);
   inset-block-start: var(--size-2);
-  pointer-events: none;
+  color: var(--color-gray-50);
+  z-index: var(--layer-1);
+  filter: drop-shadow(0 0 var(--size-1) var(--color-gray-900));
 `;
 
 const StyledTopPost = styled.li`

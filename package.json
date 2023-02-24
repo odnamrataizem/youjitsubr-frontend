@@ -28,6 +28,7 @@
     "pollen-css": "^4.6.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
     "ts-easing": "^0.2.0"
   },
   "devDependencies": {
