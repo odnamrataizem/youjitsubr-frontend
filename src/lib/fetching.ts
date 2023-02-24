@@ -232,6 +232,7 @@ const queries = {
           ) {
             id
             title
+            lead
             slug
             publishedAt
             sticky
@@ -290,6 +291,7 @@ const queries = {
           ) {
             id
             title
+            lead
             slug
             publishedAt
             sticky
@@ -342,6 +344,7 @@ const queries = {
           ) {
             id
             title
+            lead
             slug
             publishedAt
             sticky

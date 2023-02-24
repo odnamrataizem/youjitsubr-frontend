@@ -26,6 +26,7 @@ const PAGE_ONE = `${PAGE_PREFIX}1`;
 
 export type ResultProps<T extends DataListsWithPosts> = {
   data: DataListMap[T];
+  dataList: T;
   page?: number;
   lastPage?: number;
   timeframe?: string[];
@@ -167,7 +168,7 @@ export function pagedRouteFactory<T extends DataListsWithPosts>(
 
     if (data.postsCount) {
       return addApolloState(client, {
-        props: { data, page, lastPage, timeframe: slug },
+        props: { data, dataList, page, lastPage, timeframe: slug },
       });
     }
 
