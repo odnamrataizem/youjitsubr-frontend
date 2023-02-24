@@ -16,7 +16,7 @@ export default function PostLink({ post, children }: PostLinkProps) {
         new Date(post.publishedAt),
       ).join('/')}/${encodeURIComponent(post.slug)}`}
     >
-      {children ?? post.title}
+      <bdi>{children ?? post.title}</bdi>
     </Link>
   );
 }

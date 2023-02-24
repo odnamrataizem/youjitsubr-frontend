@@ -12,7 +12,7 @@ export default function EntityLink({ kind, data, children }: EntityLinkProps) {
     <Link
       href={`/${encodeURIComponent(kind)}/${encodeURIComponent(data.slug)}`}
     >
-      {children ?? data.title ?? data.name}
+      <bdi>{children ?? data.title ?? data.name}</bdi>
     </Link>
   );
 }
