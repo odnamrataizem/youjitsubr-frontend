@@ -151,6 +151,7 @@ const StyledImageContainer = styled.div`
     color: var(--color-gray-50);
 
     span {
+      display: block;
       padding-inline: var(--size-8);
       padding-block-start: var(--size-8);
       padding-block-end: var(--size-4);
