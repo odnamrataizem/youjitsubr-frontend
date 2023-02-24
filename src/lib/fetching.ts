@@ -23,6 +23,7 @@ const ALL_POSTS_QUERY = gql`
     ) {
       id
       title
+      lead
       slug
       publishedAt
       sticky
