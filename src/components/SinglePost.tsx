@@ -267,9 +267,17 @@ const StyledLinkContainer = styled.small`
     padding-inline: var(--size-3);
     padding-block: var(--size-2);
 
+    &:hover {
+      color: var(--color-youjitsu-1);
+    }
+
     html.dark & {
       color: var(--color-gray-50);
       border-color: var(--color-youjitsu-2);
+
+      &:hover {
+        color: var(--color-youjitsu-2);
+      }
     }
   }
 

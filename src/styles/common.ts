@@ -47,9 +47,20 @@ export const ProseContainer = styled.div`
 
   a {
     color: var(--color-youjitsu-1);
+    transition: color 0.25s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: var(--color-youjitsu-2);
+    }
 
     html.dark & {
       color: var(--color-youjitsu-2);
+
+      &:hover,
+      &:focus {
+        color: var(--color-youjitsu-1);
+      }
     }
   }
 
