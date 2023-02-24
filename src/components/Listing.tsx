@@ -44,6 +44,11 @@ export default function Listing<T extends ListingObject>({
   let title = <b>{data.name ?? data.title}</b>;
   switch (dataList) {
     case 'categories': {
+      if ((data.name ?? data.title) == null) {
+        title = <>Todos os posts</>;
+        break;
+      }
+
       title = <>Posts na categoria {title}</>;
 
       if (timeframe?.length) {
