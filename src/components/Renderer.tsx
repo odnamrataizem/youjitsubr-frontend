@@ -18,6 +18,10 @@ const StyledIcon = styled(BsBoxArrowUpRight)`
   display: inline-block;
   vertical-align: -0.1em;
   margin-inline-start: 0.3em;
+
+  html[dir='rtl'] & {
+    transform: scaleX(-1);
+  }
 `;
 
 function SmartLink({ href, children }: SmartLinkProps) {
