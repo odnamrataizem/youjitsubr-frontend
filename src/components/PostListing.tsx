@@ -26,7 +26,7 @@ type ListingObject = {
   posts: Post[];
 };
 
-type ListingProps<T extends ListingObject> = {
+type PostListingProps<T extends ListingObject> = {
   data: T;
   dataList: string;
   page?: number;
@@ -34,13 +34,13 @@ type ListingProps<T extends ListingObject> = {
   timeframe?: string[];
 };
 
-export default function Listing<T extends ListingObject>({
+export default function PostListing<T extends ListingObject>({
   data,
   dataList,
   page,
   lastPage,
   timeframe,
-}: ListingProps<T>) {
+}: PostListingProps<T>) {
   page ??= 1;
   lastPage ??= 1;
 

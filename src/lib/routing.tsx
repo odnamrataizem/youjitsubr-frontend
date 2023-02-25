@@ -17,7 +17,7 @@ import {
   DataListMap,
 } from './fetching';
 import { addApolloState } from './apolloClient';
-import Listing from '../components/Listing';
+import PostListing from '../components/PostListing';
 
 export const POSTS_PER_PAGE = 30;
 
@@ -175,9 +175,9 @@ export function pagedRouteFactory<T extends DataListsWithPosts>(
     return { notFound: true };
   };
 
-  const Component = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-    return <Listing {...props} />;
-  };
+  const Component = (props: InferGetStaticPropsType<typeof getStaticProps>) => (
+    <PostListing {...props} />
+  );
 
   return { Component, getStaticPaths, getStaticProps };
 }
