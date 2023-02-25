@@ -101,7 +101,7 @@ export default function Header() {
             <Image priority fill src="/kiyotaka-kei.png" alt="" />
           </StyledImageContainer>
           <StyledSiteTitle>
-            <Image priority fill src="/yjbr.svg" alt="YoujitsuBR" />
+            <Image priority fill src="/yjbr.svg" alt="YouJitsuBR" />
           </StyledSiteTitle>
         </StyledContainer>
       </Link>

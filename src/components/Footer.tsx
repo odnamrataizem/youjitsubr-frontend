@@ -11,7 +11,7 @@ export default function Footer() {
       <Container as="div">
         <Link href="/">
           <StyledSiteTitle>
-            <Image priority fill src="/yjbr.svg" alt="" />
+            <Image priority fill src="/yjbr.svg" alt="YouJitsuBR" />
           </StyledSiteTitle>
         </Link>
         <StyledPartnerList>
