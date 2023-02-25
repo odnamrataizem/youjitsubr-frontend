@@ -423,6 +423,56 @@ export async function fetchData<T extends DataListsWithPosts>(
   return { client, data: data[field] };
 }
 
+const queriesAll = {
+  categories: [
+    'Categorias',
+    'posts',
+    gql`
+      query AllCategories {
+        categories(orderBy: [{ name: asc }]) {
+          id
+          name
+          slug
+          cover {
+            url
+          }
+          postsCount(where: { status: { equals: PUBLISHED } })
+        }
+      }
+    `,
+  ],
+  users: [
+    'Equipe',
+    'people',
+    gql`
+      query AllUsers {
+        users(orderBy: [{ name: asc }]) {
+          id
+          name
+          slug
+          picture {
+            url
+          }
+          postsCount(where: { status: { equals: PUBLISHED } })
+        }
+      }
+    `,
+  ],
+} as const;
+
+export type DataListsAllWithPosts = keyof typeof queriesAll;
+
+export async function fetchAllData<T extends DataListsAllWithPosts>(
+  dataList: T,
+) {
+  const client = initializeApollo();
+  const [title, path, query] = queriesAll[dataList];
+
+  const { data } = await client.query({ query });
+
+  return { client, title, path, data: data[dataList] };
+}
+
 export async function fetchSlugs<T extends DataLists>(dataList: T) {
   const client = initializeApollo();
   const { data } = await client.query({ query: ALL_POSTS_LIGHT_QUERY });
