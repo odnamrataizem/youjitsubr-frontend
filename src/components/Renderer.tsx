@@ -2,9 +2,35 @@ import {
   DocumentRenderer,
   DocumentRendererProps,
 } from '@keystone-6/document-renderer';
+import { styled } from '@linaria/react';
 import useResizeObserver from '@react-hook/resize-observer';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { BsBoxArrowUpRight } from 'react-icons/bs';
+
+type SmartLinkProps = {
+  children: React.ReactNode;
+  href: string;
+};
+
+const StyledIcon = styled(BsBoxArrowUpRight)`
+  display: inline-block;
+  vertical-align: -0.1em;
+  margin-inline-start: 0.3em;
+`;
+
+function SmartLink({ href, children }: SmartLinkProps) {
+  if (/^[^\/]+:\/\//.test(href)) {
+    return (
+      <a href={href} rel="external">
+        {children}<StyledIcon />
+      </a>
+    );
+  }
+
+  return <Link href={href}>{children}</Link>;
+}
 
 type EmbedProps = {
   src: string;
@@ -147,6 +173,12 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
   );
 }
 
+const renderers: DocumentRendererProps['renderers'] = {
+  inline: {
+    link: SmartLink,
+  },
+};
+
 const componentBlocks: DocumentRendererProps['componentBlocks'] = {
   embed: Embed,
 };
@@ -157,6 +189,10 @@ type RendererProps = {
 
 export default function Renderer({ document }: RendererProps) {
   return (
-    <DocumentRenderer document={document} componentBlocks={componentBlocks} />
+    <DocumentRenderer
+      document={document}
+      renderers={renderers}
+      componentBlocks={componentBlocks}
+    />
   );
 }
