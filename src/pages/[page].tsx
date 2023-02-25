@@ -60,8 +60,6 @@ export const getStaticProps: GetStaticProps<
     variables: { slug: context.params?.page ?? '' },
   });
 
-  console.log(data);
-
   if (!data?.page) {
     return { notFound: true };
   }
