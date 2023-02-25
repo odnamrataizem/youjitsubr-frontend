@@ -9,7 +9,7 @@ import type {
 
 import SinglePage from '../components/SinglePage';
 import { addApolloState, initializeApollo } from '../lib/apolloClient';
-import { fetchSlugs, Post } from '../lib/fetching';
+import { fetchSlugs, Page } from '../lib/fetching';
 
 const PAGE_QUERY = gql`
   query Page($slug: String) {
@@ -22,6 +22,8 @@ const PAGE_QUERY = gql`
       }
       cover {
         url
+        width
+        height
       }
     }
   }
@@ -49,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<
-  { data: Post },
+  { data: Page },
   PathResultQuery
 > = async context => {
   const client = initializeApollo();
@@ -58,14 +60,16 @@ export const getStaticProps: GetStaticProps<
     variables: { slug: context.params?.page ?? '' },
   });
 
-  if (!data?.post) {
+  console.log(data);
+
+  if (!data?.page) {
     return { notFound: true };
   }
 
-  return addApolloState(client, { props: { data: data.post } });
+  return addApolloState(client, { props: { data: data.page } });
 };
 
-export default function Page(
+export default function PageComponent(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   return <SinglePage {...props} />;
