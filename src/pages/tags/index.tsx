@@ -43,8 +43,6 @@ export default function Tags({ list }: TagsProps) {
     maxCount = Math.max(maxCount, tag.postsCount ?? 0);
   }
 
-  console.log({ minCount, maxCount });
-
   return (
     <ProseContainer className={styledLinks}>
       <StyledTitle>Tags</StyledTitle>
