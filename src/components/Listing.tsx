@@ -5,6 +5,7 @@ import React from 'react';
 import { UploadedFile, type EntityWithPosts } from '../lib/fetching';
 import { Breakpoints, ProseContainer, styledLinks } from '../styles/common';
 import EntityLink from './EntityLink';
+import Metadata from './Metadata';
 
 type Data = EntityWithPosts & {
   cover?: UploadedFile;
@@ -13,13 +14,14 @@ type Data = EntityWithPosts & {
 
 type ListingProps = {
   data: Data[];
-  title: React.ReactNode;
+  title: string;
   path: string;
 };
 
 export default function Listing({ data, title, path }: ListingProps) {
   return (
     <ProseContainer className={styledLinks}>
+      <Metadata title={title} />
       <StyledTitle>{title}</StyledTitle>
       <StyledListing>
         {data

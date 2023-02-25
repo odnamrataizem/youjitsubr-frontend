@@ -141,8 +141,6 @@ export const getStaticProps: GetStaticProps<
 export default function PostPage(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
-  const keys = Object.keys(props);
-
   if ('isPost' in props) {
     return <SinglePost {...props} />;
   }

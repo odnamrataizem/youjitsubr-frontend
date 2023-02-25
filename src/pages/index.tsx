@@ -8,6 +8,7 @@ import React from 'react';
 
 import Authors from '../components/Authors';
 import EntityLink from '../components/EntityLink';
+import Metadata from '../components/Metadata';
 import PostLink from '../components/PostLink';
 import { Sticky } from '../components/Sticky';
 import { addApolloState, initializeApollo } from '../lib/apolloClient';
@@ -65,6 +66,10 @@ export default function Home({ data }: HomeProps) {
 
   return (
     <>
+      <Metadata
+        description="Website dedicado à comunidade brasileira de Classroom of the Elite."
+        cover="/yjbr.svg"
+      />
       <section>
         <h2 className={visuallyHidden}>Últimos posts</h2>
         <StyledTopPosts>

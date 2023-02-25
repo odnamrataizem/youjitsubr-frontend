@@ -16,6 +16,7 @@ const PAGE_QUERY = gql`
     page(where: { slug: $slug }) {
       id
       title
+      lead
       slug
       content {
         document
@@ -25,6 +26,8 @@ const PAGE_QUERY = gql`
         width
         height
       }
+      createdAt
+      updatedAt
     }
   }
 `;

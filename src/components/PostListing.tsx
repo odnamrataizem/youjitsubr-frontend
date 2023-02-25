@@ -11,6 +11,7 @@ import {
   StyledAboutPictureContainer,
   StyledAboutSection,
 } from '../styles/common';
+import Metadata from './Metadata';
 import Paginator from './Paginator';
 import PostLink from './PostLink';
 import Renderer from './Renderer';
@@ -48,14 +49,17 @@ export default function PostListing<T extends ListingObject>({
   const description = data.description?.document;
 
   let title = <b>{data.name ?? data.title}</b>;
+  let plainTitle = data.name ?? data.title;
   switch (dataList) {
     case 'categories': {
-      if ((data.name ?? data.title) == null) {
+      if (plainTitle == null) {
         title = <>Todos os posts</>;
+        plainTitle = 'Todos os posts';
         break;
       }
 
       title = <>Posts na categoria {title}</>;
+      plainTitle = `Posts na categoria ${plainTitle}`;
 
       if (timeframe?.length) {
         const date = new Date(
@@ -70,22 +74,26 @@ export default function PostListing<T extends ListingObject>({
             {title} ({date})
           </>
         );
+        plainTitle = `${plainTitle} (${date})`;
       }
 
       break;
     }
     case 'users': {
       title = <>Posts de {title}</>;
+      plainTitle = `Posts de ${plainTitle}`;
       break;
     }
     case 'tags': {
       title = <>Posts com a tag {title}</>;
+      plainTitle = `Posts com a tag ${plainTitle}`;
       break;
     }
   }
 
   return (
     <StyledContainer>
+      <Metadata title={plainTitle} cover={image} />
       <StyledTitle>{title}</StyledTitle>
       {description && (
         <ProseContainer>

@@ -10,7 +10,7 @@ export default function Document() {
   `;
 
   return (
-    <Html lang={process.env.NEXT_PUBLIC_LOCALE}>
+    <Html lang={process.env.NEXT_PUBLIC_LOCALE} prefix="og: https://ogp.me/ns#">
       <Head />
       <body>
         <Main />

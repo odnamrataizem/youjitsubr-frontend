@@ -14,6 +14,7 @@ import {
 } from '../styles/common';
 import Authors from './Authors';
 import EntityLink from './EntityLink';
+import Metadata from './Metadata';
 import Renderer from './Renderer';
 
 type SinglePostProps = {
@@ -21,13 +22,19 @@ type SinglePostProps = {
 };
 
 export default function SinglePost({ data }: SinglePostProps) {
-  const authors = new Intl.ListFormat(
-    process.env.NEXT_PUBLIC_LOCALE,
-  ).formatToParts(data.authors.map((_, index) => index.toString()));
-
   return (
     data && (
       <StyledArticle>
+        <Metadata
+          title={data.title}
+          description={data.lead}
+          cover={data.cover?.url}
+          type="article"
+          publishedAt={new Date(data.publishedAt)}
+          updatedAt={new Date(data.updatedAt)}
+          category={data.category.name}
+          tags={data.tags.map(tag => tag.name)}
+        />
         <StyledHeader>
           <ProseContainer className={styledLinks}>
             <StyledTitle>{data.title}</StyledTitle>

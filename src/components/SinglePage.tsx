@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { Page } from '../lib/fetching';
 import { Breakpoints, ProseContainer, styledLinks } from '../styles/common';
+import Metadata from './Metadata';
 import Renderer from './Renderer';
 
 type SinglePageProps = {
@@ -14,6 +15,14 @@ export default function SinglePage({ data }: SinglePageProps) {
   return (
     data && (
       <StyledArticle>
+        <Metadata
+          title={data.title}
+          description={data.lead}
+          cover={data.cover?.url}
+          type="article"
+          publishedAt={new Date(data.createdAt)}
+          updatedAt={new Date(data.updatedAt)}
+        />
         <StyledHeader>
           <ProseContainer>
             {data.cover?.url}

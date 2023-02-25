@@ -95,8 +95,10 @@ export type Category = EntityWithPosts & {
 
 export type Page = Entity & {
   title: string;
+  lead: string;
   content: SlateDocument;
   cover?: UploadedFile;
+  createdAt: string;
   updatedAt: string;
 };
 
