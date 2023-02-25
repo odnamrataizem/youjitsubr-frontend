@@ -6,7 +6,7 @@ import { styled } from '@linaria/react';
 import useResizeObserver from '@react-hook/resize-observer';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 
 type SmartLinkProps = {
