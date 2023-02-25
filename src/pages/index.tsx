@@ -149,6 +149,7 @@ const StyledImageContainer = styled.div`
     font-size: var(--scale-5);
     line-height: var(--line-sm);
     color: var(--color-gray-50);
+    text-shadow: 0 0 var(--size-1) var(--color-gray-900);
 
     span {
       display: block;
