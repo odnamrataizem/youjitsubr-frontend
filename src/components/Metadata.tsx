@@ -31,7 +31,6 @@ export default function Metadata({
   return (
     <Head>
       <title>{renderedTitle}</title>
-      <meta name="color-scheme" content="light dark" />
       {description && <meta name="description" content={description} />}
       <meta property="og:title" content={title ?? 'YouJitsuBR'} />
       {description && <meta property="og:description" content={description} />}
