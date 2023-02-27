@@ -160,6 +160,8 @@ export default function Header() {
 }
 
 const StyledHeader = styled.header`
+  position: relative;
+  z-index: var(--layer-5);
   border-block-end: var(--size-1) solid var(--color-youjitsu-1);
   block-size: var(--size-14);
 
@@ -204,8 +206,8 @@ const menuToggle = css`
   position: fixed;
   inset-inline-end: 0;
   inset-block-start: 0;
-  inline-size: var(--size-32);
-  block-size: var(--size-24);
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
   color: transparent;
   background: var(--color-youjitsu-1);
 
@@ -214,7 +216,7 @@ const menuToggle = css`
   }
 
   @media (width < ${Breakpoints.MD}) {
-    inline-size: var(--size-16);
+    inline-size: var(--size-14);
     block-size: var(--size-14);
   }
 `;
@@ -239,7 +241,7 @@ const StyledMenu = styled.nav`
   inset-block: 0;
   inset-inline-end: 0;
   inline-size: var(--size-80);
-  transform: translate3d(calc(var(--size-80) - var(--size-32)), 0, 0);
+  transform: translate3d(calc(var(--size-80) - var(--size-20)), 0, 0);
   max-inline-size: var(--size-80);
   background: var(--color-youjitsu-1);
   transition: transform 0.25s ease-in-out;
@@ -251,7 +253,7 @@ const StyledMenu = styled.nav`
   }
 
   html[dir='rtl'] & {
-    transform: translate3d(calc(var(--size-32) - var(--size-80)), 0, 0);
+    transform: translate3d(calc(var(--size-20) - var(--size-80)), 0, 0);
   }
 
   html.dark & {
@@ -309,9 +311,9 @@ const StyledMenu = styled.nav`
 const StyledMenuIcon = styled.span`
   position: fixed;
   pointer-events: none;
-  inset-inline-end: var(--size-6);
-  inset-block-start: var(--size-6);
-  inline-size: var(--size-20);
+  inset-inline-end: var(--size-3);
+  inset-block-start: var(--size-4);
+  inline-size: var(--size-14);
   transition: transform 0.25s ease-in-out;
   z-index: var(--layer-3);
 
@@ -358,7 +360,7 @@ const StyledMenuIcon = styled.span`
   @media (width < ${Breakpoints.MD}) {
     inset-inline-end: var(--size-2);
     inset-block-start: var(--size-2);
-    inline-size: var(--size-12);
+    inline-size: var(--size-10);
 
     span {
       &:nth-child(2) {
@@ -389,16 +391,16 @@ const StyledMenuIcon = styled.span`
 
 const StyledSocialLinkContainer = styled.div`
   position: fixed;
-  inset-inline-end: var(--size-8);
-  inset-block-end: var(--size-8);
-  inline-size: var(--size-64);
+  inset-inline-end: var(--size-4);
+  inset-block-end: var(--size-4);
+  inline-size: var(--size-72);
   aspect-ratio: 1 / 1;
   z-index: var(--layer-5);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: var(--size-6);
+  gap: var(--size-4);
   pointer-events: none;
 
   > * {
@@ -433,8 +435,8 @@ const StyledSocialLinkContainer = styled.div`
 
 const StyledSocialLink = styled.a`
   position: relative;
-  inline-size: var(--size-16);
-  block-size: var(--size-16);
+  inline-size: var(--size-12);
+  block-size: var(--size-12);
 
   img {
     object-fit: contain;

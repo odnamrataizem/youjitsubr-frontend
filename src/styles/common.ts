@@ -27,7 +27,7 @@ export const Container = styled.main`
 
   @media (width >= ${Breakpoints.LG}) {
     inline-size: ${Breakpoints.LG};
-    padding-inline-end: calc(var(--size-5) + var(--size-32));
+    padding-inline-end: calc(var(--size-5) + var(--size-20));
   }
 
   @media (width >= ${Breakpoints.XL}) {
