@@ -31,6 +31,10 @@ export default function Metadata({
   return (
     <Head>
       <title>{renderedTitle}</title>
+      <link rel="manifest" href="/manifest.webmanifest" />
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       {description && <meta name="description" content={description} />}
       <meta property="og:title" content={title ?? 'YouJitsuBR'} />
       {description && <meta property="og:description" content={description} />}
