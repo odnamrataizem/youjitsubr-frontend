@@ -99,7 +99,12 @@ export default function PostListing<T extends ListingObject>({
         <ProseContainer>
           <StyledAboutSection>
             <StyledAboutPictureContainer>
-              <Image fill src={image} alt="" />
+              <Image
+                fill
+                sizes={`(width < ${Breakpoints.MD}) 80px, 144px`}
+                src={image}
+                alt=""
+              />
             </StyledAboutPictureContainer>
             <StyledAboutInfoContainer>
               <div>
@@ -113,7 +118,12 @@ export default function PostListing<T extends ListingObject>({
         {data.posts.map(post => (
           <li key={post.id}>
             <StyledImageContainer>
-              <Image fill alt="" src={post.cover?.url ?? ''} />
+              <Image
+                fill
+                sizes={`(width < ${Breakpoints.XL}) 96px, 144px`}
+                alt=""
+                src={post.cover?.url ?? ''}
+              />
               {post.sticky && <Sticky />}
             </StyledImageContainer>
             <div>

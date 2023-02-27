@@ -78,6 +78,7 @@ export default function SinglePost({ data }: SinglePostProps) {
             </StyledMeta>
             <Image
               priority
+              sizes={`(width < ${Breakpoints.SM}) calc(100vw - 40px), (width < ${Breakpoints.MD}) 600px, (width < ${Breakpoints.LG}) 728px, 812px`}
               alt=""
               src={data.cover?.url ?? ''}
               width={data.cover?.width ?? 0}
@@ -112,7 +113,12 @@ export default function SinglePost({ data }: SinglePostProps) {
               {data.authors.map(author => (
                 <StyledAboutSection key={author.id}>
                   <StyledAboutPictureContainer>
-                    <Image fill src={author.picture?.url ?? ''} alt="" />
+                    <Image
+                      sizes={`(width < ${Breakpoints.MD}) 80px, 144px`}
+                      fill
+                      src={author.picture?.url ?? ''}
+                      alt=""
+                    />
                   </StyledAboutPictureContainer>
                   <StyledAboutInfoContainer>
                     <h3>{author.name}</h3>

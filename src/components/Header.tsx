@@ -98,7 +98,13 @@ export default function Header() {
       <Link href="/">
         <StyledContainer as="div">
           <StyledImageContainer>
-            <Image priority fill src="/kiyotaka-kei.png" alt="" />
+            <Image
+              priority
+              fill
+              sizes={`(width < ${Breakpoints.MD}) 64px, 348px`}
+              src="/kiyotaka-kei.png"
+              alt=""
+            />
           </StyledImageContainer>
           <StyledSiteTitle>
             <Image priority fill src="/yjbr.svg" alt="YouJitsuBR" />

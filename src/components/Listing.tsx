@@ -31,6 +31,7 @@ export default function Listing({ data, title, path }: ListingProps) {
               <StyledImageContainer>
                 <Image
                   fill
+                  sizes="112px"
                   alt=""
                   src={item.picture?.url ?? item.cover?.url ?? ''}
                 />

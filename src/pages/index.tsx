@@ -74,7 +74,13 @@ export default function Home({ data }: HomeProps) {
         <h2 className={visuallyHidden}>Últimos posts</h2>
         <StyledTopPosts>
           <StyledImageContainer as="li">
-            <Image priority fill alt="" src={topPost.cover?.url ?? ''} />
+            <Image
+              priority
+              fill
+              sizes={`(width < ${Breakpoints.SM}) calc(100vw - 40px), (width < ${Breakpoints.MD}) 600px, (width < ${Breakpoints.LG}) 728px, (width < ${Breakpoints.XL}) 904px, (width < ${Breakpoints.XXL}) 696px, 850px`}
+              alt=""
+              src={topPost.cover?.url ?? ''}
+            />
             {topPost.sticky && <Sticky />}
             <PostLink post={topPost}>
               <span>{topPost.title}</span>
@@ -83,7 +89,13 @@ export default function Home({ data }: HomeProps) {
           {threePosts.map(post => (
             <StyledTopPost key={post.id}>
               <StyledImageContainer>
-                <Image priority fill alt="" src={post.cover?.url ?? ''} />
+                <Image
+                  priority
+                  fill
+                  sizes={`(width < ${Breakpoints.XL}) 96px, 144px`}
+                  alt=""
+                  src={post.cover?.url ?? ''}
+                />
                 {post.sticky && <Sticky />}
               </StyledImageContainer>
               <div className={styledLinks}>
