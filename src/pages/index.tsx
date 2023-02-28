@@ -272,6 +272,10 @@ const StyledTopPost = styled.li`
     display: block;
     font-size: var(--scale-2);
 
+    &:first-of-type {
+      margin-block-end: var(--size-2);
+    }
+
     &:last-of-type {
       font-size: var(--scale-3);
       color: var(--color-gray-900);
