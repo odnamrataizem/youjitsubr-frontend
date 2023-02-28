@@ -225,6 +225,8 @@ const StyledTopPosts = styled.ul`
   }
 
   li {
+    line-height: var(--line-xs);
+
     a {
       text-decoration: none;
     }
