@@ -221,7 +221,7 @@ const StyledTopPosts = styled.ul`
   }
 
   @media (${Breakpoints.XL} <= width) {
-    grid-template: 1fr 1fr 1fr / 60% 40%;
+    grid-template: 1fr 1fr 1fr / auto 40%;
   }
 
   li {
