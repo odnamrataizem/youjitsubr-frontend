@@ -27,6 +27,10 @@ export default function Header() {
     setOpen(false);
   }, []);
 
+  const closeMenuAndNavigate = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   const socialLinksRef = useRef<HTMLDivElement>(null);
 
   const [socialLinkBoxes, setSocialLinkBoxes] = useState<any[]>([]);
@@ -122,19 +126,29 @@ export default function Header() {
       <StyledMenu id="main-menu" className={open ? 'open' : ''}>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/" onClick={closeMenuAndNavigate}>
+              Home
+            </Link>
           </li>
           <li>
-            <Link href="/posts/noticias">Notícias</Link>
+            <Link href="/posts/noticias" onClick={closeMenuAndNavigate}>
+              Notícias
+            </Link>
           </li>
           <li>
-            <Link href="/posts/resenhas">Resenhas</Link>
+            <Link href="/posts/resenhas" onClick={closeMenuAndNavigate}>
+              Resenhas
+            </Link>
           </li>
           <li>
-            <Link href="/sobre-nos">Sobre</Link>
+            <Link href="/sobre-nos" onClick={closeMenuAndNavigate}>
+              Sobre
+            </Link>
           </li>
           <li>
-            <Link href="/contato">Contato</Link>
+            <Link href="/contato" onClick={closeMenuAndNavigate}>
+              Contato
+            </Link>
           </li>
         </ul>
       </StyledMenu>
