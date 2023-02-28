@@ -7,7 +7,7 @@ import type { Post, SlateDocument, UploadedFile } from '../lib/fetching';
 import {
   Breakpoints,
   ProseContainer,
-  StyledAboutInfoContainer,
+  StyledAboutDescriptionContainer,
   StyledAboutPictureContainer,
   StyledAboutSection,
 } from '../styles/common';
@@ -97,7 +97,7 @@ export default function PostListing<T extends ListingObject>({
       <StyledTitle>{title}</StyledTitle>
       {description && (
         <ProseContainer>
-          <StyledAboutSection>
+          <StyledStyledAboutSection>
             <StyledAboutPictureContainer>
               <Image
                 fill
@@ -106,12 +106,10 @@ export default function PostListing<T extends ListingObject>({
                 alt=""
               />
             </StyledAboutPictureContainer>
-            <StyledAboutInfoContainer>
-              <div>
-                <Renderer document={description} />
-              </div>
-            </StyledAboutInfoContainer>
-          </StyledAboutSection>
+            <StyledAboutDescriptionContainer>
+              <Renderer document={description} />
+            </StyledAboutDescriptionContainer>
+          </StyledStyledAboutSection>
         </ProseContainer>
       )}
       <StyledListing>
@@ -152,6 +150,28 @@ const StyledTitle = styled.h1`
 
   @media (width < ${Breakpoints.MD}) {
     font-size: var(--scale-4);
+  }
+`;
+
+const StyledStyledAboutSection = styled(StyledAboutSection)`
+  display: flex;
+  flex-direction: column;
+
+  ${StyledAboutPictureContainer} {
+    flex: none;
+    margin-block-start: 0;
+  }
+
+  ${StyledAboutDescriptionContainer} {
+    place-self: unset;
+
+    > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  @media (width > ${Breakpoints.MD}) {
+    flex-direction: row;
   }
 `;
 

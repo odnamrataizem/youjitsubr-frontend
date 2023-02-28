@@ -6,7 +6,7 @@ import type { Post } from '../lib/fetching';
 import {
   Breakpoints,
   ProseContainer,
-  StyledAboutInfoContainer,
+  StyledAboutDescriptionContainer,
   StyledAboutPictureContainer,
   StyledAboutSection,
   styledLinks,
@@ -120,12 +120,10 @@ export default function SinglePost({ data }: SinglePostProps) {
                       alt=""
                     />
                   </StyledAboutPictureContainer>
-                  <StyledAboutInfoContainer>
-                    <h3>{author.name}</h3>
-                    <div>
-                      <Renderer document={author.description.document} />
-                    </div>
-                  </StyledAboutInfoContainer>
+                  <h3>{author.name}</h3>
+                  <StyledAboutDescriptionContainer>
+                    <Renderer document={author.description.document} />
+                  </StyledAboutDescriptionContainer>
                   <StyledLinkContainer>
                     <EntityLink kind="people" data={author}>
                       Ver posts
@@ -204,7 +202,9 @@ const StyledTagsSection = styled.section`
 `;
 
 const StyledLinkContainer = styled.small`
-  align-self: flex-start;
+  grid-area: link;
+  place-self: start end;
+  white-space: nowrap;
 
   a {
     text-decoration: none;

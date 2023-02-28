@@ -188,18 +188,24 @@ export const visuallyHidden = css`
 
 export const StyledAboutSection = styled.section`
   background: var(--color-gray-100);
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-areas:
+    'image       header'
+    'description description'
+    'link        link';
+  grid-template-columns: auto 1fr;
   position: relative;
   border-radius: var(--radius-sm);
   margin-block: var(--scale-4);
   padding: var(--size-6);
-  gap: var(--size-6);
+  column-gap: var(--size-6);
   align-items: center;
   font-size: var(--scale-0);
 
   h3 {
-    margin-block-start: 0;
+    grid-area: header;
+    margin-block: 0;
+    place-self: start;
   }
 
   html.dark & {
@@ -210,15 +216,24 @@ export const StyledAboutSection = styled.section`
     border-radius: var(--radius-lg);
     margin-block: var(--scale-4);
     padding: var(--size-8);
-    gap: var(--size-8);
+    column-gap: var(--size-8);
+    row-gap: var(--size-4);
+    grid-template-areas:
+      'image header      link'
+      'image description description';
+    grid-template-columns: auto 1fr auto;
+
+    h3 {
+      place-self: unset;
+    }
   }
 `;
 
 export const StyledAboutPictureContainer = styled.div`
   position: relative;
+  grid-area: image;
   inline-size: var(--size-20);
   block-size: var(--size-20);
-  align-self: flex-start;
   margin-block-start: calc(var(--size-5) * -1);
 
   img {
@@ -230,26 +245,22 @@ export const StyledAboutPictureContainer = styled.div`
     inline-size: var(--size-36);
     block-size: var(--size-36);
     margin-block-start: 0;
-    align-self: unset;
   }
 `;
 
-export const StyledAboutInfoContainer = styled.div`
-  flex: 1;
+export const StyledAboutDescriptionContainer = styled.div`
+  grid-area: description;
+  place-self: start;
 
-  > div {
-    :first-child {
-      margin-block-start: 0;
-    }
-
-    :last-child {
-      margin-block-end: 0;
-    }
+  > :first-child {
+    margin-block-start: 0;
   }
 
-  @media (width < ${Breakpoints.MD}) {
-    > div {
-      margin-inline-start: calc(var(--size-20) * -1 + var(--size-6) * -1);
+  @media (width >= ${Breakpoints.MD}) {
+    place-self: unset;
+
+    > :last-child {
+      margin-block-end: 0;
     }
   }
 `;
