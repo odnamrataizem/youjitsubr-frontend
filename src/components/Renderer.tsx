@@ -29,7 +29,8 @@ function SmartLink({ href, children }: SmartLinkProps) {
   if (/^[^\/]+:\/\//.test(href)) {
     return (
       <a href={href} rel="external">
-        {children}<StyledIcon />
+        {children}
+        <StyledIcon />
       </a>
     );
   }
@@ -131,7 +132,12 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
 
   const [srcDoc, setSrcDoc] = useState(data.html);
 
-  const [theme] = useColorScheme();
+  let [theme] = useColorScheme();
+  if (!theme && globalThis.document) {
+    theme = globalThis.document.documentElement.classList.contains('dark')
+      ? 'dark'
+      : 'light';
+  }
 
   useEffect(() => {
     if (!data.html) {
