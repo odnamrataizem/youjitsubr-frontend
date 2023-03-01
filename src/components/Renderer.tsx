@@ -132,12 +132,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
 
   const [srcDoc, setSrcDoc] = useState(data.html);
 
-  let [theme] = useColorScheme();
-  if (!theme && globalThis.document) {
-    theme = globalThis.document.documentElement.classList.contains('dark')
-      ? 'dark'
-      : 'light';
-  }
+  let [, , theme] = useColorScheme();
 
   useEffect(() => {
     if (!data.html) {
@@ -149,7 +144,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
       `data-theme="${theme}" `,
     );
     setSrcDoc(
-      `<!DOCTYPE html><html data-loaded="true" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
+      `<!DOCTYPE html><html data-loaded="true" class="${theme}" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
     );
   }, [data.html, theme]);
 
