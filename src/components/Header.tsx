@@ -349,7 +349,7 @@ const StyledMenu = styled.nav`
     }
 
     a {
-      color: var(--color-gray-50);
+      color: var(--color-grey-50);
       text-decoration: none;
     }
   }
@@ -377,7 +377,7 @@ const StyledMenuIcon = styled.span`
     inset-block-start: 0;
     block-size: var(--size-2);
     inline-size: var(--size-full);
-    background: var(--color-gray-50);
+    background: var(--color-grey-50);
     border-radius: var(--radius-full);
     opacity: 1;
     left: 0;

@@ -14,7 +14,7 @@ const StyledSticky = styled.div`
   position: absolute;
   inset-inline-end: var(--size-2);
   inset-block-start: var(--size-2);
-  color: var(--color-gray-50);
+  color: var(--color-grey-50);
   z-index: var(--layer-1);
-  filter: drop-shadow(0 0 var(--size-1) var(--color-gray-900));
+  filter: drop-shadow(0 0 var(--size-1) var(--color-grey-900));
 `;

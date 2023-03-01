@@ -71,7 +71,7 @@ const StyledPartnerList = styled.ul`
     display: block;
     width: 88px;
     height: 31px;
-    background: var(--color-gray-500);
+    background: var(--color-grey-500);
     color: transparent;
   }
 `;

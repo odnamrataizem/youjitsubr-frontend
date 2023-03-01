@@ -12,7 +12,7 @@
 
 ::selection {
   background: var(--color-youjitsu-1);
-  color: var(--color-gray-50);
+  color: var(--color-grey-50);
 }
 
 * {
@@ -22,8 +22,8 @@
 
 html,
 body {
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
+  background: var(--color-grey-50);
+  color: var(--color-grey-900);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   min-block-size: var(--size-full);
@@ -32,8 +32,8 @@ body {
 
 html.dark,
 html.dark body {
-  background: var(--color-gray-900);
-  color: var(--color-gray-50);
+  background: var(--color-grey-900);
+  color: var(--color-grey-50);
 }
 
 html:focus-within {
@@ -66,7 +66,7 @@ kbd,
 pre {
   font-family: var(--font-mono);
   border-radius: var(--radius-sm);
-  background: var(--color-gray-100);
+  background: var(--color-grey-100);
   padding-inline: var(--size-2);
   padding-block: var(--size-1);
   hyphens: none;
@@ -80,7 +80,7 @@ strong {
 html.dark code,
 html.dark kbd,
 html.dark pre {
-  background: var(--color-gray-800);
+  background: var(--color-grey-800);
 }
 
 pre {

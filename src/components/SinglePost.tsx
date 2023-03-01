@@ -208,7 +208,7 @@ const StyledLinkContainer = styled.small`
 
   a {
     text-decoration: none;
-    color: var(--color-gray-900);
+    color: var(--color-grey-900);
     border: var(--size-px) solid var(--color-youjitsu-1);
     border-radius: var(--radius-xs);
     padding-inline: var(--size-3);
@@ -219,7 +219,7 @@ const StyledLinkContainer = styled.small`
     }
 
     html.dark & {
-      color: var(--color-gray-50);
+      color: var(--color-grey-50);
       border-color: var(--color-youjitsu-2);
 
       &:hover {

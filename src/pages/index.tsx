@@ -165,8 +165,8 @@ const StyledImageContainer = styled.div`
     justify-content: flex-end;
     font-size: var(--scale-5);
     line-height: var(--line-sm);
-    color: var(--color-gray-50);
-    text-shadow: 0 0 var(--size-1) var(--color-gray-900);
+    color: var(--color-grey-50);
+    text-shadow: 0 0 var(--size-1) var(--color-grey-900);
 
     span {
       display: block;
@@ -278,10 +278,10 @@ const StyledTopPost = styled.li`
 
     &:last-of-type {
       font-size: var(--scale-3);
-      color: var(--color-gray-900);
+      color: var(--color-grey-900);
 
       html.dark & {
-        color: var(--color-gray-50);
+        color: var(--color-grey-50);
       }
     }
 
@@ -309,10 +309,10 @@ const StyledMorePosts = styled.ul`
     }
 
     > div > a:nth-child(2) {
-      color: var(--color-gray-900);
+      color: var(--color-grey-900);
 
       html.dark & {
-        color: var(--color-gray-50);
+        color: var(--color-grey-50);
       }
     }
 
@@ -372,7 +372,7 @@ const styledAllPostsLink = css`
   padding-block: var(--size-3);
   margin-block-end: var(--size-10);
   border-radius: var(--radius-sm);
-  color: var(--color-gray-50);
+  color: var(--color-grey-50);
   background: var(--color-youjitsu-1);
   transition: background 0.25s ease-in-out;
 

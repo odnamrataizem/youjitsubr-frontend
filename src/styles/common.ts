@@ -187,7 +187,7 @@ export const visuallyHidden = css`
 `;
 
 export const StyledAboutSection = styled.section`
-  background: var(--color-gray-100);
+  background: var(--color-grey-100);
   display: grid;
   grid-template-areas:
     'image       header'
@@ -209,7 +209,7 @@ export const StyledAboutSection = styled.section`
   }
 
   html.dark & {
-    background: var(--color-gray-800);
+    background: var(--color-grey-800);
   }
 
   @media (width >= ${Breakpoints.MD}) {
