@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { useColorScheme } from '../lib/store/color-scheme';
 
 type SmartLinkProps = {
   children: React.ReactNode;
@@ -130,14 +131,13 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
 
   const [srcDoc, setSrcDoc] = useState(data.html);
 
+  const [theme] = useColorScheme();
+
   useEffect(() => {
-    if (!data.html || !globalThis.localStorage) {
+    if (!data.html) {
       return;
     }
 
-    const theme =
-      localStorage.theme ??
-      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const html = data.html.replace(
       /(?=class="twitter)/,
       `data-theme="${theme}" `,
@@ -145,7 +145,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     setSrcDoc(
       `<!DOCTYPE html><html data-loaded="true" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
     );
-  }, [data.html]);
+  }, [data.html, theme]);
 
   return (
     <figure>

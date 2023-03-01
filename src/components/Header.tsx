@@ -3,18 +3,22 @@ import { styled } from '@linaria/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { BsMoonStarsFill, BsSunFill } from 'react-icons/bs';
+import { CgDarkMode } from 'react-icons/cg';
 import { tween } from '../lib/misc';
+import { useColorScheme } from '../lib/store/color-scheme';
 
 import { Breakpoints, Container } from '../styles/common';
 
 export default function Header() {
+  const [clientOnly, setClientOnly] = useState(false);
+  useEffect(() => {
+    setClientOnly(true);
+  }, []);
+
+  const [colorScheme, setColorScheme] = useColorScheme();
+
   const [open, setOpen] = useState(false);
 
   const openMenu = useCallback((event: React.MouseEvent) => {
@@ -38,6 +42,8 @@ export default function Header() {
 
   const isMobile = useMediaQuery(`(width < ${Breakpoints.LG})`);
 
+  const isSupposedlyDark = useMediaQuery('(prefers-color-scheme: dark)');
+
   useEffect(() => {
     if (!socialLinksRef.current) {
       return;
@@ -58,7 +64,7 @@ export default function Header() {
     }
 
     setSocialLinkBoxes(boxes);
-  }, [isMobile]);
+  }, [isMobile, clientOnly]);
 
   useEffect(() => {
     if (!socialLinksRef.current) {
@@ -96,6 +102,20 @@ export default function Header() {
       );
     }
   }, [socialLinkBoxes, open, isMobile]);
+
+  const changeColorScheme = useCallback(() => {
+    if (colorScheme == null) {
+      setColorScheme(isSupposedlyDark ? 'light' : 'dark');
+      return;
+    }
+
+    if (colorScheme == 'dark') {
+      setColorScheme(isSupposedlyDark ? undefined : 'light');
+      return;
+    }
+
+    setColorScheme(isSupposedlyDark ? 'dark' : undefined);
+  }, [colorScheme, isSupposedlyDark, setColorScheme]);
 
   return (
     <StyledHeader>
@@ -162,6 +182,21 @@ export default function Header() {
         <StyledSocialLink href="#">
           <Image priority fill src="/discord.svg" alt="Discord" />
         </StyledSocialLink>
+        {clientOnly && (
+          <StyledSocialLink
+            as="button"
+            type="button"
+            onClick={changeColorScheme}
+          >
+            {colorScheme === 'light' ? (
+              <BsSunFill title="Tema claro - clique para trocar" />
+            ) : colorScheme === 'dark' ? (
+              <BsMoonStarsFill title="Tema escuro - clique para trocar" />
+            ) : (
+              <CgDarkMode title="Tema automático - clique para trocar" />
+            )}
+          </StyledSocialLink>
+        )}
       </StyledSocialLinkContainer>
       <StyledCloseMenu
         className={menuToggle}
@@ -454,9 +489,16 @@ const StyledSocialLinkContainer = styled.div`
 `;
 
 const StyledSocialLink = styled.a`
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
   position: relative;
   inline-size: var(--size-12);
   block-size: var(--size-12);
+  font-size: var(--size-12);
+  cursor: pointer;
 
   img {
     object-fit: contain;
