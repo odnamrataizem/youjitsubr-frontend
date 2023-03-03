@@ -13,7 +13,6 @@ const config = pollen => ({
     },
     scaleFluid: false,
     width: false,
-    line: false,
     ease: false,
     easing: false,
     elevation: false,

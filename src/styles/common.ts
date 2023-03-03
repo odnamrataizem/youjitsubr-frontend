@@ -112,6 +112,44 @@ export const ProseContainer = styled.div`
     font-size: var(--scale-0);
   }
 
+  blockquote {
+    border-radius: var(--radius-sm);
+    border-inline-start: var(--size-2) solid var(--color-youjitsu-1);
+    background: var(--color-grey-100);
+    padding-inline: var(--size-6);
+    color: var(--color-grey-800);
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+      font-family: var(--font-serif);
+      font-size: var(--scale-10);
+      line-height: var(--line-none);
+      position: absolute;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: open-quote;
+      inset-inline-start: 0;
+      inset-block-start: 0;
+    }
+
+    &::after {
+      content: close-quote;
+      inset-inline-end: 0;
+      inset-block-end: -0.5em;
+    }
+
+    html.dark & {
+      border-color: var(--color-youjitsu-2);
+      background: var(--color-grey-800);
+      color: var(--color-grey-100);
+    }
+  }
+
   hr {
     border: 0;
     position: relative;
