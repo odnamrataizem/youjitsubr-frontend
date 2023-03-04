@@ -139,10 +139,14 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
       return;
     }
 
-    const html = data.html.replace(
-      /(?=class="twitter)/,
-      `data-theme="${theme}" `,
-    );
+    let html = data.html;
+    if (/(?=class="twitter)/.test(data.html)) {
+      html = html.replace(
+        /(?=class="twitter)/,
+        `data-theme="${theme}" `,
+      );
+    }
+
     setSrcDoc(
       `<!DOCTYPE html><html data-loaded="true" class="${theme}" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
     );
