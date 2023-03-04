@@ -38,6 +38,10 @@ function SmartLink({ href, children }: SmartLinkProps) {
   return <Link href={href}>{children}</Link>;
 }
 
+function wrapEmbed(html: string, theme: string) {
+  return `<!DOCTYPE html><html data-loaded="true" class="${theme}" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;font-family:system-ui;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`;
+}
+
 type EmbedProps = {
   src: string;
   alt: string;
@@ -47,6 +51,14 @@ type EmbedProps = {
 
 function Embed({ src, alt, data, caption }: EmbedProps) {
   data = JSON.parse(data);
+
+  const [, , theme] = useColorScheme();
+  const [srcDoc, setSrcDoc] = useState('');
+
+  useEffect(() => {
+    setSrcDoc(wrapEmbed(data.html, theme));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeContents, setIframeContents] = useState<HTMLElement>();
@@ -72,7 +84,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     const ready = () => {
       if (
         iframe?.contentDocument?.readyState !== 'complete' ||
-        !iframe.contentDocument.documentElement.dataset.loaded
+        !iframe.contentDocument.documentElement?.dataset.loaded
       ) {
         setTimeout(ready, 25);
         return;
@@ -130,26 +142,19 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     }
   }, [data, iframeContents]);
 
-  const [srcDoc, setSrcDoc] = useState(data.html);
-
-  let [, , theme] = useColorScheme();
-
   useEffect(() => {
     if (!data.html) {
       return;
     }
 
-    let html = data.html;
     if (/(?=class="twitter)/.test(data.html)) {
-      html = html.replace(
+      const html = data.html.replace(
         /(?=class="twitter)/,
         `data-theme="${theme}" `,
       );
-    }
 
-    setSrcDoc(
-      `<!DOCTYPE html><html data-loaded="true" class="${theme}" lang=${process.env.NEXT_PUBLIC_LOCALE}><style>html{font-size:125%;color:#000}html.dark{color:#fff}body{margin:0;padding:0;display:flex;flex-direction:column;align-items:center}iframe,img{max-width:100%}</style><body>${html}</body></html>`,
-    );
+      setSrcDoc(wrapEmbed(html, theme));
+    }
   }, [data.html, theme]);
 
   return (

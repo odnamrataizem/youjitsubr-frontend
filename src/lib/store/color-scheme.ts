@@ -30,7 +30,7 @@ const store = createStore<State>(set => ({
       resolvedColorScheme: toggle ? 'dark' : 'light',
     }));
   },
-  resolvedColorScheme: 'light',
+  resolvedColorScheme: documentClasses?.contains('dark') ? 'dark' : 'light',
 }));
 
 media?.addEventListener('change', event => {
