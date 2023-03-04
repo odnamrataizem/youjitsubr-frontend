@@ -6,6 +6,7 @@ import React from 'react';
 import type { Post, SlateDocument, UploadedFile } from '../lib/fetching';
 import {
   Breakpoints,
+  innerShadow,
   ProseContainer,
   StyledAboutDescriptionContainer,
   StyledAboutPictureContainer,
@@ -98,7 +99,7 @@ export default function PostListing<T extends ListingObject>({
       {description && (
         <ProseContainer>
           <StyledStyledAboutSection>
-            <StyledAboutPictureContainer>
+            <StyledAboutPictureContainer className={innerShadow}>
               <Image
                 fill
                 sizes={`(width < ${Breakpoints.MD}) 80px, 144px`}
@@ -115,7 +116,7 @@ export default function PostListing<T extends ListingObject>({
       <StyledListing>
         {data.posts.map(post => (
           <li key={post.id}>
-            <StyledImageContainer>
+            <StyledImageContainer className={innerShadow}>
               <Image
                 fill
                 sizes={`(width < ${Breakpoints.XL}) 96px, 144px`}
@@ -228,6 +229,10 @@ const StyledImageContainer = styled.div`
 
   img {
     object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  &::after {
     border-radius: var(--radius-sm);
   }
 `;

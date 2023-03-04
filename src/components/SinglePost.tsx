@@ -5,6 +5,7 @@ import React from 'react';
 import type { Post } from '../lib/fetching';
 import {
   Breakpoints,
+  innerShadow,
   ProseContainer,
   StyledAboutDescriptionContainer,
   StyledAboutPictureContainer,
@@ -112,7 +113,7 @@ export default function SinglePost({ data }: SinglePostProps) {
               <h2 className={visuallyHidden}>Autores</h2>
               {data.authors.map(author => (
                 <StyledAboutSection key={author.id}>
-                  <StyledAboutPictureContainer>
+                  <StyledAboutPictureContainer className={innerShadow}>
                     <Image
                       sizes={`(width < ${Breakpoints.MD}) 80px, 144px`}
                       fill

@@ -279,6 +279,10 @@ export const StyledAboutPictureContainer = styled.div`
     border-radius: var(--radius-full);
   }
 
+  &::after {
+    border-radius: var(--radius-full);
+  }
+
   @media (width >= ${Breakpoints.MD}) {
     inline-size: var(--size-36);
     block-size: var(--size-36);
@@ -299,6 +303,23 @@ export const StyledAboutDescriptionContainer = styled.div`
 
     > :last-child {
       margin-block-end: 0;
+    }
+  }
+`;
+
+export const innerShadow = css`
+  position: relative;
+
+  &::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border: var(--size-px) solid var(--color-grey-900);
+    opacity: 0.1;
+
+    html.dark & {
+      border-color: var(--color-grey-50);
     }
   }
 `;

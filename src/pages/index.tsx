@@ -13,7 +13,7 @@ import PostLink from '../components/PostLink';
 import { Sticky } from '../components/Sticky';
 import { addApolloState, initializeApollo } from '../lib/apolloClient';
 import type { Post } from '../lib/fetching';
-import { Breakpoints, styledLinks, visuallyHidden } from '../styles/common';
+import { Breakpoints, innerShadow, styledLinks, visuallyHidden } from '../styles/common';
 
 const FRONT_PAGE_QUERY = gql`
   query FrontPageQuery {
@@ -73,7 +73,7 @@ export default function Home({ data }: HomeProps) {
       <section>
         <h2 className={visuallyHidden}>Últimos posts</h2>
         <StyledTopPosts>
-          <StyledImageContainer as="li">
+          <StyledImageContainer as="li" className={innerShadow}>
             <Image
               priority
               fill
@@ -88,7 +88,7 @@ export default function Home({ data }: HomeProps) {
           </StyledImageContainer>
           {threePosts.map(post => (
             <StyledTopPost key={post.id}>
-              <StyledImageContainer>
+              <StyledImageContainer className={innerShadow}>
                 <Image
                   priority
                   fill
@@ -154,6 +154,10 @@ const StyledImageContainer = styled.div`
 
   img {
     object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  &::after {
     border-radius: var(--radius-sm);
   }
 
