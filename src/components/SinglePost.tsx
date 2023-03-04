@@ -194,6 +194,10 @@ const StyledTagsSection = styled.section`
       font-weight: var(--weight-black);
       text-decoration: none;
 
+      &:hover {
+        text-decoration: underline;
+      }
+
       &::before {
         content: '#';
         opacity: 0.75;
