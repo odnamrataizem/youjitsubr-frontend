@@ -220,11 +220,11 @@ const StyledTopPosts = styled.ul`
   margin-block: var(--size-10);
   font-weight: var(--weight-medium);
 
-  @media (${Breakpoints.MD} <= width < ${Breakpoints.XL}) {
+  @media (width >= ${Breakpoints.MD}) {
     grid-template: 1fr auto / 1fr 1fr 1fr;
   }
 
-  @media (${Breakpoints.XL} <= width) {
+  @media (width >= ${Breakpoints.XL}) {
     grid-template: 1fr 1fr 1fr / auto 40%;
   }
 
@@ -256,11 +256,12 @@ const StyledTopPosts = styled.ul`
         aspect-ratio: var(--ratio-widescreen);
       }
 
-      @media (${Breakpoints.MD} <= width < ${Breakpoints.XL}) {
+      @media (width => ${Breakpoints.MD}) {
         grid-column: 1 / span 3;
       }
 
-      @media (${Breakpoints.XL} <= width) {
+      @media (width >= ${Breakpoints.XL}) {
+        grid-column: unset;
         grid-row: 1 / span 3;
       }
     }
@@ -394,7 +395,7 @@ const StyledColumns = styled.div`
   display: flex;
   align-items: flex-start;
 
-  @media (${Breakpoints.XL} <= width) {
+  @media (width >= ${Breakpoints.XL}) {
     > :first-child {
       inline-size: 70%;
     }
