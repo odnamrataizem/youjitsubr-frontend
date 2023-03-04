@@ -233,6 +233,10 @@ const StyledTopPosts = styled.ul`
 
     a {
       text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     &::marker {
@@ -276,10 +280,6 @@ const StyledTopPost = styled.li`
   a {
     display: block;
     font-size: var(--scale-2);
-
-    &:hover {
-      text-decoration: underline;
-    }
 
     &:first-of-type {
       margin-block-end: var(--size-2);
