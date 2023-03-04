@@ -265,6 +265,7 @@ const StyledTopPosts = styled.ul`
 
 const StyledTopPost = styled.li`
   display: flex;
+  position: relative;
   align-items: center;
   gap: var(--size-5);
 
@@ -276,6 +277,10 @@ const StyledTopPost = styled.li`
     display: block;
     font-size: var(--scale-2);
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     &:first-of-type {
       margin-block-end: var(--size-2);
     }
@@ -286,6 +291,18 @@ const StyledTopPost = styled.li`
 
       html.dark & {
         color: var(--color-grey-50);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        inline-size: var(--size-36);
+
+        @media (width < ${Breakpoints.XL}) {
+          inline-size: var(--size-24);
+        }
       }
     }
 
@@ -302,6 +319,7 @@ const StyledTopPost = styled.li`
 const StyledMorePosts = styled.ul`
   li {
     display: flex;
+    position: relative;
     gap: var(--size-9);
     margin-block-end: var(--size-10);
     font-size: var(--scale-3);
@@ -310,10 +328,26 @@ const StyledMorePosts = styled.ul`
       display: block;
       text-decoration: none;
       font-weight: var(--weight-medium);
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     > div > a:nth-child(2) {
       color: var(--color-grey-900);
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        inline-size: var(--size-60);
+
+        @media (width < ${Breakpoints.MD}) {
+          inline-size: var(--size-36);
+        }
+      }
 
       html.dark & {
         color: var(--color-grey-50);

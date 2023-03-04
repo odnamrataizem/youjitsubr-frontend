@@ -180,6 +180,7 @@ const StyledListing = styled.ul`
   padding: 0;
 
   li {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--size-6);
@@ -191,19 +192,33 @@ const StyledListing = styled.ul`
         text-decoration: none;
         font-size: var(--scale-3);
         font-weight: var(--weight-semibold);
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset-block: 0;
+          inset-inline-start: 0;
+          inline-size: var(--size-36);
+
+          @media (width < ${Breakpoints.MD}) {
+            inline-size: var(--size-24);
+          }
+        }
+
+        @media (width < ${Breakpoints.MD}) {
+          font-size: var(--scale-1);
+        }
       }
 
       p {
         font-size: var(--scale-2);
         margin-block: var(--size-3) 0;
-      }
 
-      @media (width < ${Breakpoints.MD}) {
-        a {
-          font-size: var(--scale-1);
-        }
-
-        p {
+        @media (width < ${Breakpoints.MD}) {
           font-size: var(--scale-0);
           margin-block: var(--size-2) 0;
         }
