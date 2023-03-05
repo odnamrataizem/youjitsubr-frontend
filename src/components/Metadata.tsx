@@ -26,7 +26,7 @@ export default function Metadata({
 }: MetadataProps) {
   const renderedTitle = title
     ? `${title} | YouJitsuBR`
-    : 'YouJitsuBR | Não vamos desistir até Classroom of the Elite ser publicado por aqui!';
+    : 'YouJitsuBR | Não vamos desistir até Classroom of the Elite ser publicado no Brasil!';
 
   return (
     <Head>
