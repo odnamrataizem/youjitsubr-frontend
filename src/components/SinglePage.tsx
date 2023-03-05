@@ -25,7 +25,6 @@ export default function SinglePage({ data }: SinglePageProps) {
         />
         <StyledHeader>
           <ProseContainer>
-            {data.cover?.url}
             <h1>{data.title}</h1>
             <Image
               priority
