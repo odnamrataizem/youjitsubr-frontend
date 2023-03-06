@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { Container, ProseContainer } from '../styles/common';
+import { Container, ProseContainer, styledLinks } from '../styles/common';
 
 export default function Footer() {
   return (
@@ -31,8 +31,12 @@ export default function Footer() {
             <Link href="https://google.com/">Google</Link>
           </li>
         </StyledPartnerList>
-        <StyledCopyrightContainer>
+        <StyledCopyrightContainer className={styledLinks}>
           <p>Feito com ❤️ e por ❤️ à comunidade brasileira de COTE!</p>
+          <p>
+            Powered by <a href="https://nextjs.org/">Next.js</a> and{' '}
+            <a href="https://keystonejs.com/">Keystone</a>.
+          </p>
         </StyledCopyrightContainer>
       </Container>
     </StyledFooter>
@@ -81,5 +85,6 @@ const StyledCopyrightContainer = styled(ProseContainer)`
 
   p {
     text-align: center;
+    margin-block: 0.5em;
   }
 `;
