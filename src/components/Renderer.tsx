@@ -161,7 +161,7 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
     }
   }, [data.html, theme]);
 
-  if (!data) {
+  if (!Object.keys(data).length) {
     return null;
   }
 
