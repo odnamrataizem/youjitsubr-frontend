@@ -50,7 +50,11 @@ type EmbedProps = {
 };
 
 function Embed({ src, alt, data, caption }: EmbedProps) {
-  data = JSON.parse(data);
+  try {
+    data = JSON.parse(data);
+  } catch {
+    data = {};
+  }
 
   const [, , theme] = useColorScheme();
   const [srcDoc, setSrcDoc] = useState('');
@@ -156,6 +160,10 @@ function Embed({ src, alt, data, caption }: EmbedProps) {
       setSrcDoc(wrapEmbed(html, theme));
     }
   }, [data.html, theme]);
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <figure>
