@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { UploadedFile, type EntityWithPosts } from '../lib/fetching';
-import { Breakpoints, ProseContainer, styledLinks } from '../styles/common';
+import { Breakpoints, innerShadow, ProseContainer, styledLinks } from '../styles/common';
 import EntityLink from './EntityLink';
 import Metadata from './Metadata';
 
@@ -28,7 +28,7 @@ export default function Listing({ data, title, path }: ListingProps) {
           .filter(item => item.postsCount)
           .map(item => (
             <li key={item.id}>
-              <StyledImageContainer>
+              <StyledImageContainer className={innerShadow}>
                 <Image
                   fill
                   sizes="112px"
@@ -81,5 +81,9 @@ const StyledImageContainer = styled.div`
   img {
     border-radius: var(--radius-full);
     object-fit: cover;
+  }
+
+  &::after {
+    border-radius: var(--radius-full);
   }
 `;
