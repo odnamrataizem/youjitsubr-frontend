@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 
 import Layout from '../components/Layout';
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <Analytics />
     </ApolloProvider>
   );
 }
