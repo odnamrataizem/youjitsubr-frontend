@@ -179,7 +179,7 @@ export default function Header() {
         <StyledSocialLink href="https://facebook.com/YouJitsuBR">
           <Image priority fill src="/facebook.svg" alt="Facebook" />
         </StyledSocialLink>
-        <StyledSocialLink href="#">
+        <StyledSocialLink href="https://discord.gg/r3UgWDfMNr">
           <Image priority fill src="/discord.svg" alt="Discord" />
         </StyledSocialLink>
         {clientOnly && (
