@@ -16,19 +16,19 @@ export default function Footer() {
         </Link>
         <StyledPartnerList>
           <li>
-            <Link href="https://google.com/">Google</Link>
+            <Link href="#">Parceiro</Link>
           </li>
           <li>
-            <Link href="https://google.com/">Google</Link>
+            <Link href="#">Parceiro</Link>
           </li>
           <li>
-            <Link href="https://google.com/">Google</Link>
+            <Link href="#">Parceiro</Link>
           </li>
           <li>
-            <Link href="https://google.com/">Google</Link>
+            <Link href="#">Parceiro</Link>
           </li>
           <li>
-            <Link href="https://google.com/">Google</Link>
+            <Link href="#">Parceiro</Link>
           </li>
         </StyledPartnerList>
         <StyledCopyrightContainer className={styledLinks}>
