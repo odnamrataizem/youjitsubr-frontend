@@ -121,7 +121,7 @@ export default function Header() {
     <StyledHeader>
       <Link href="/">
         <StyledContainer as="div">
-          <StyledImageContainer>
+          {/* <StyledImageContainer>
             <Image
               priority
               fill
@@ -129,7 +129,7 @@ export default function Header() {
               src="/kiyotaka-kei.png"
               alt=""
             />
-          </StyledImageContainer>
+          </StyledImageContainer> */}
           <StyledSiteTitle>
             <Image priority fill src="/yjbr.svg" alt="YouJitsuBR" />
           </StyledSiteTitle>
