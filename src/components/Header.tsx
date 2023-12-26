@@ -174,7 +174,7 @@ export default function Header() {
       </StyledMenu>
       <StyledSocialLinkContainer ref={socialLinksRef} style={{ blockSize }}>
         <StyledSocialLink href="https://twitter.com/YouJitsuNoBR">
-          <Image priority fill src="/twitter.svg" alt="Twitter" />
+          <Image priority fill src="/twitter.svg" alt="X" />
         </StyledSocialLink>
         <StyledSocialLink href="https://facebook.com/YouJitsuBR">
           <Image priority fill src="/facebook.svg" alt="Facebook" />
