@@ -182,6 +182,9 @@ export default function Header() {
         <StyledSocialLink href="https://discord.gg/r3UgWDfMNr">
           <Image priority fill src="/discord.svg" alt="Discord" />
         </StyledSocialLink>
+        <StyledSocialLink href="https://threads.com/youjitsubrasil">
+          <Image priority fill src="/threads.svg" alt="Threads" />
+        </StyledSocialLink>
         {clientOnly && (
           <StyledSocialLink
             as="button"
