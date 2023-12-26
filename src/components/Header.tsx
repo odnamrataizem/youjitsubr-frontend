@@ -151,6 +151,11 @@ export default function Header() {
             </Link>
           </li>
           <li>
+            <Link href="/posts/geral" onClick={closeMenuAndNavigate}>
+              Geral
+            </Link>
+          </li>
+          <li>
             <Link href="/posts/noticias" onClick={closeMenuAndNavigate}>
               Notícias
             </Link>
